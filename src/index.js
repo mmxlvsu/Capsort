@@ -13,25 +13,29 @@ import StudentAbout from "./pages/StudentAbout";
 import Verify from "./pages/Verify";
 import Reset from "./pages/Reset";
 import Saved from "./pages/Saved";
+import AdminDash from "./pages/AdminDash";
+import AdminAnalytics from "./pages/AdminAnalytics";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <Routes>
-        <Route path="/splash" element={<Splash />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signadmin" element={<SignAdmin />} />
-        <Route path="/signstudent" element={<SignStudent />} />
-        <Route path="/guest" element={<Guest />} />
-        <Route path="/guestabout" element={<GuestAbout />} />
-        <Route path="/studentdash" element={<StudentDash />} />
-        <Route path="/studentabout" element={<StudentAbout />} />
-        <Route path="/reset" element={<Reset />} />
-        <Route path="/verify" element={<Verify />} />
-        <Route path="/saved" element={<Saved />} />
-
+        <Routes>
+  <Route path="/" element={<Splash />} />      {/* <-- default/root */}
+  <Route path="/splash" element={<Splash />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/signadmin" element={<SignAdmin />} />
+  <Route path="/signstudent" element={<SignStudent />} />
+  <Route path="/guest" element={<Guest />} />
+  <Route path="/guestabout" element={<GuestAbout />} />
+  <Route path="/studentdash" element={<StudentDash />} />
+  <Route path="/studentabout" element={<StudentAbout />} />
+  <Route path="/reset" element={<Reset />} />
+  <Route path="/verify" element={<Verify />} />
+  <Route path="/saved" element={<Saved />} />
+  <Route path="/admindash" element={<AdminDash />} />
+  <Route path="/adminanalytics" element={<AdminAnalytics />} />
       </Routes>
     </Router>
   </React.StrictMode>

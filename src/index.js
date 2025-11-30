@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Splash from "./pages/Splash";
 import Signup from "./pages/Signup";
-import SignAdmin from "./pages/SignAdmin";
 import SignStudent from "./pages/SignStudent";
 import Guest from "./pages/Guest";
 import GuestAbout from "./pages/GuestAbout";
@@ -25,7 +24,6 @@ root.render(
   <Route path="/" element={<Splash />} />      {/* <-- default/root */}
   <Route path="/splash" element={<Splash />} />
   <Route path="/signup" element={<Signup />} />
-  <Route path="/signadmin" element={<SignAdmin />} />
   <Route path="/signstudent" element={<SignStudent />} />
   <Route path="/guest" element={<Guest />} />
   <Route path="/guestabout" element={<GuestAbout />} />

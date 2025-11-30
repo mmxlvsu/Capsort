@@ -1,255 +1,33 @@
-/* ===== BASE STYLES ===== */
-.signup-container {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f3f4f6;
-  position: relative;
-  overflow-x: hidden;
-  padding: 0 20px;
-}
-
-/* Back Button */
-.signup-back-button {
-  position: absolute;
-  top: 50px;
-  left: 60px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  z-index: 100;
-}
-.signup-back-icon {
-  width: 32px;
-  height: 32px;
-}
-
-/* Left Scroll / Form */
-.signup-scroll-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  width: 50vw;
-  min-height: 90vh;
-  margin-right: 50px;
-  overflow-y: auto;
-}
-.signup-logo {
-  width: 25vw;
-  max-width: 300px;
-}
-.signup-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-/* Tabs */
-.signup-tab-container {
-  display: flex;
-  margin-bottom: 30px;
-}
-.signup-tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-right: 20px;
-  font-weight: 500;
-  color: #666666;
-}
-.signup-tab.active {
-  border-bottom: 2px solid #1a1851;
-  color: #1a1851;
-}
-
-/* Form Inputs */
-.signup-input-container {
-  position: relative;
-  width: 100%;
-  min-height: 45px;
-  margin-bottom: 6px;
-  border: 0.5px solid #1A1851;
-  border-radius: 4px;
-  background-color: white;
-}
-.signup-input {
-  width: calc(100% - 60px);
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 0.8rem;
-  padding: 12px 0 12px 40px;
-}
-.signup-icon {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-}
-.signup-toggle-icon {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-/* Checkbox + Forgot Password */
+/* ===== CHECKBOX & REMEMBER ME ===== */
 .signup-checkbox-container {
   display: flex;
-  align-items: center;
-  width: 100%;
+  align-items: center;        /* aligns checkbox + text perfectly */
+  gap: 10px;                  /* spacing between checkbox and label */
   margin-top: 10px;
 }
+
+/* Checkbox */
 .signup-checkbox-container input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
-  accent-color: #1a1851;
-}
-.signup-checkbox-container label {
-  font-size: 0.8rem;
-  color: #333;
-}
-.signup-checkbox-container span {
-  color: #1a1851;
-  font-weight: bold;
-  cursor: pointer;
+  accent-color: #1a1851;      /* checkbox color */
 }
 
-/* Buttons */
-.signup-button {
-  background-color: #1a1851;
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 6px;
-  width: 100%;
-  min-height: 45px;
-  margin-top: 35px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  padding: 10px;
-}
-.signup-button:hover {
-  background-color: #000;
-}
-
-/* Login Redirect Text */
-.signup-login-text {
-  margin-top: 70px;
+/* Label Text (Remember Me) */
+.signup-checkbox-label {
   font-size: 0.85rem;
-  text-align: center;
+  color: black;
+  cursor: pointer;
+  margin: 0;                  /* remove accidental spacing */
+  font-weight: 500;
 }
-.signup-login-text span {
-  font-weight: bold;
+
+/* Forgot Password Link */
+.signup-checkbox-container .signup-forgot {
+  margin-left: auto;          /* pushes it to the right side */
+  font-size: 0.85rem;
   color: #1a1851;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-.signup-login-text span:hover {
-  text-decoration: underline;
-}
-
-/* Lottie Animation */
-.signup-lottie {
-  position: relative;
-  width: 45vw;
-  height: 90vh;
-  margin-right: 50px;
-  background-color: rgba(26, 24, 81, 0.98);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 50;
-}
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px;
-  max-width: 1000px;
-  max-height: 80vh;
-  overflow-y: auto;
-  text-align: center;
-}
-.modal-content p {
-  text-align: justify;
-  font-size: 18px;
-}
-.modal-close-btn {
-  margin-top: 12px;
-  padding: 4px 15px;
-  background-color: #1a1851;
-  color: #fff;
-  border: none;
-  font-size: 20px;
-  border-radius: 4px;
   font-weight: bold;
-  cursor: pointer;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  .signup-container {
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 60px;
-  }
-  .signup-scroll-container,
-  .signup-lottie {
-    width: 90vw;
-    min-height: 40vh;
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-  .signup-logo {
-    width: 40vw;
-  }
-}
-
-@media (max-width: 768px) {
-  .signup-scroll-container,
-  .signup-lottie {
-    width: 90vw;
-    min-height: 40vh;
-  }
-  .signup-logo {
-    width: 50vw;
-  }
-}
-
-@media (max-width: 480px) {
-  .signup-scroll-container,
-  .signup-lottie {
-    width: 95vw;
-    min-height: 35vh;
-  }
-  .signup-logo {
-    width: 50vw;
-  }
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
+import { useNavigate } from "react-router-dom";
 
 import SplashAnimation from "../assets/splash.json"; 
 import CapsortImage from "../assets/capsort.png";     
@@ -11,63 +11,95 @@ import passIcon from "../assets/pass.png";
 import showIcon from "../assets/show.png";
 import hideIcon from "../assets/hide.png";
 
-import "../styles/SignStudent.css";
+import "../styles/SignStudent.css"; // merged CSS
 
-export default function SignStudent() {
+export default function SignTabs() {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("student");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
 
+  // New states to track inputs for each tab
+  const [studentEmail, setStudentEmail] = useState("");
+  const [studentPassword, setStudentPassword] = useState("");
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+
+  const isStudentButtonDisabled = !studentEmail || !studentPassword;
+  const isAdminButtonDisabled = !adminEmail || !adminPassword;
+
   return (
     <div className="signup-container">
-      
       {/* Back Button */}
       <div className="signup-back-button" onClick={() => navigate("/splash")}>
         <img src={backIcon} alt="Back" className="signup-back-icon" />
       </div>
 
-      {/* Left Scroll / Form */}
+      {/* Left Form / Scroll */}
       <div className="signup-scroll-container">
         <img src={CapsortImage} alt="Capsort Logo" className="signup-logo" />
         <h2 className="signup-title">Capstone Archiving and Sorting System</h2>
 
-        {/* Tabs */}
         <div className="signup-tab-container">
-          <div className="signup-tab signup-tab-student active">Student</div>
-          <div
-            className="signup-tab signup-tab-admin"
-            onClick={() => navigate("/signadmin")}
-          >
-            Admin
-          </div>
-        </div>
+  <div
+    className="signup-tab-background"
+    style={{ left: activeTab === "student" ? "0%" : "50%" }}
+  />
+  <div
+    className={`signup-tab-button ${activeTab === "student" ? "active" : ""}`}
+    onClick={() => setActiveTab("student")}
+  >
+    Student
+  </div>
+  <div
+    className={`signup-tab-button ${activeTab === "admin" ? "active" : ""}`}
+    onClick={() => setActiveTab("admin")}
+  >
+    Admin
+  </div>
+</div>
 
+
+        {/* Form */}
         <form className="signup-form">
-          {/* Email */}
           <div className="signup-input-wrapper">
-            <img src={mailIcon} alt="Mail" className="signup-icon signup-icon-mail" />
-            <input type="email" placeholder="Email Address" className="signup-input signup-input-email" />
+            <img src={mailIcon} alt="Mail" className="signup-icon" />
+            <input
+              type="email"
+              placeholder="Email Address"
+              className="signup-input"
+              value={activeTab === "student" ? studentEmail : adminEmail}
+              onChange={(e) => 
+                activeTab === "student"
+                  ? setStudentEmail(e.target.value)
+                  : setAdminEmail(e.target.value)
+              }
+            />
           </div>
 
-          {/* Password */}
           <div className="signup-input-wrapper">
-            <img src={passIcon} alt="Password" className="signup-icon signup-icon-pass" />
+            <img src={passIcon} alt="Password" className="signup-icon" />
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className="signup-input signup-input-password"
+              className="signup-input"
+              value={activeTab === "student" ? studentPassword : adminPassword}
+              onChange={(e) => 
+                activeTab === "student"
+                  ? setStudentPassword(e.target.value)
+                  : setAdminPassword(e.target.value)
+              }
             />
             <img
               src={showPassword ? showIcon : hideIcon}
               alt="Toggle Password"
-              className="signup-toggle-icon signup-toggle-password"
+              className="signup-toggle-icon"
               onClick={() => setShowPassword(!showPassword)}
             />
           </div>
 
-          {/* Remember Me + Forgot Password */}
           <div className="signup-checkbox-wrapper">
             <div className="signup-remember-me">
               <input
@@ -78,24 +110,45 @@ export default function SignStudent() {
               />
               <label className="signup-label">Remember Me</label>
             </div>
-            <span className="signup-forgot-password" onClick={() => setShowForgotModal(true)}>
-              Forgot Password?
-            </span>
+            {activeTab === "student" && (
+              <span
+                className="signup-forgot-password"
+                onClick={() => setShowForgotModal(true)}
+              >
+                Forgot Password?
+              </span>
+            )}
           </div>
 
-          {/* Login Button */}
-          <button type="submit" className="signup-button signup-login-button">
-            Log In
+          <button
+            type="submit"
+            className="signup-button"
+            disabled={activeTab === "student" ? isStudentButtonDisabled : isAdminButtonDisabled}
+            style={{
+              cursor: (activeTab === "student" ? isStudentButtonDisabled : isAdminButtonDisabled) ? "not-allowed" : "pointer",
+              opacity: (activeTab === "student" ? isStudentButtonDisabled : isAdminButtonDisabled) ? 0.6 : 1
+            }}
+          >
+            Sign in
           </button>
         </form>
 
-        {/* Redirect to Signup */}
-        <div className="signup-redirect">
-          Don't have an account?{" "}
-          <span className="signup-redirect-link" onClick={() => navigate("/signup")}>
-            Sign up here.
-          </span>
-        </div>
+        {activeTab === "admin" && (
+          <div className="signup-admin-note">
+            Admin access is restricted. Only authorized personnel can log in.
+          </div>
+        )}
+        {activeTab === "student" && (
+          <div className="signup-redirect">
+            Don't have an account?{" "}
+            <span
+              className="signup-redirect-link"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up here.
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Right Lottie Animation */}
@@ -105,25 +158,25 @@ export default function SignStudent() {
 
       {/* Forgot Password Modal */}
       {showForgotModal && (
-        <div className="modal-overlay modal-forgot-password">
-          <div className="modal-content modal-forgot-password-content">
+        <div className="modal-overlay">
+          <div className="modal-content">
             <h3 className="modal-title">Forgot Password</h3>
             <p className="modal-text">
               Enter your email address below to receive a password reset link.
             </p>
-            <div className="signup-input-wrapper modal-input-wrapper">
-              <img src={mailIcon} alt="Mail" className="signup-icon signup-icon-mail" />
+            <div className="signup-input-wrapper">
+              <img src={mailIcon} alt="Mail" className="signup-icon" />
               <input
                 type="email"
                 placeholder="Email Address"
                 value={forgotEmail}
                 onChange={(e) => setForgotEmail(e.target.value)}
-                className="signup-input signup-input-email"
+                className="signup-input"
               />
             </div>
-            <div className="modal-buttons modal-forgot-buttons">
+            <div className="modal-buttons">
               <button
-                className="modal-button modal-send-link"
+                className="modal-send-link"
                 onClick={() => {
                   alert(`Reset link sent to ${forgotEmail}`);
                   setShowForgotModal(false);
@@ -132,7 +185,7 @@ export default function SignStudent() {
                 Send Reset Link
               </button>
               <button
-                className="modal-button modal-cancel"
+                className="modal-cancel"
                 onClick={() => setShowForgotModal(false)}
               >
                 Cancel

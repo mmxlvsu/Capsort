@@ -12,7 +12,7 @@ import passIcon from "../assets/pass.png";
 import showIcon from "../assets/show.png";
 import hideIcon from "../assets/hide.png";
 
-import "../styles/Signup.css";
+import "../styles/Signup.css"; // merged CSS
 
 export default function Signup() {
   const navigate = useNavigate();

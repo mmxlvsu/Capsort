@@ -1,0 +1,163 @@
+/* Wrapper */
+.aboutus-wrapper {
+  margin-top: 35px;
+  height: calc(100vh - 35px);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Header */
+.aboutus-header {
+  text-align: center;
+  margin-top: -2px;
+  margin-bottom: 15px;
+}
+
+.aboutus-title {
+  font-size: 24px;
+  color: #1a1851;
+  margin-bottom: 10px;
+}
+
+.aboutus-logo {
+  display: block;
+  margin: 0 auto 10px;
+  width: 380px;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+/* Mission Section */
+.aboutus-mission {
+  background-color: #1a1851;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.aboutus-mission-title {
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.aboutus-mission-desc {
+  font-size: 20px;
+  color: white;
+  line-height: 2;
+}
+
+/* Features Section */
+.aboutus-features {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.aboutus-feature-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 300px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+}
+
+.aboutus-feature-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1851;
+  margin-bottom: 10px;
+}
+
+.aboutus-feature-desc {
+  font-size: 20px;
+  color: #1e1e1e;
+}
+
+/* Team Section */
+.aboutus-team-section {
+  margin-bottom: 40px;
+}
+
+.aboutus-team-title {
+font-weight: 600;  font-size: 24px;
+  color: #1a1851;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.aboutus-team-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.aboutus-team-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.0);
+}
+
+.aboutus-team-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: #1a1851;
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.aboutus-team-name {
+  font-family: Poppins, sans-serif;
+  font-size: 20px;
+  color: #1a1851;
+  margin-bottom: 5px;
+}
+
+.aboutus-team-role {
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  color: #FFD338;
+  margin-bottom: 10px;
+}
+
+.aboutus-team-bio {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  color: #1e1e1e;
+}
+
+/* Contact Section */
+.aboutus-contact {
+  background-color: #1a1851;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.aboutus-contact-title {
+  font-family: Poppins, sans-serif;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.aboutus-contact-desc {
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.aboutus-contact-email {
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+}

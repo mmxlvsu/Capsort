@@ -5,6 +5,8 @@ import capsort from "../assets/capsort.png";
 import userImg from "../assets/user.png";
 import dropdownIcon from "../assets/dropdown.png";
 
+import "../styles/StudentAbout.css";
+
 const teamMembers = [
   {
     name: 'Dr. Maria Santos',
@@ -40,106 +42,28 @@ export default function NavigationBar({ studentName }) {
   return (
     <>
       {/* Navigation Bar */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "35px",
-          backgroundColor: "white",
-          display: "flex",
-          alignItems: "center",
-          borderBottom: "1px solid #D8D8D8",
-          justifyContent: "space-between",
-          padding: "0 30px",
-          color: "black",
-          fontFamily: "Poppins",
-          fontSize: "10px",
-          fontWeight: 400,
-          zIndex: 1000,
-        }}
-      >
-        {/* Left: Logo + Text */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <img src={citc} alt="CITC Logo" style={{ height: "20px" }} />
-          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
-            <span style={{ fontSize: "10px", fontWeight: 700 }}>Capsort</span>
-            <span style={{ fontSize: "8px", fontWeight: 400 }}>
-              Capsort Archiving and Sorting System
-            </span>
+      <div className="nav-container">
+        <div className="nav-left">
+          <img src={citc} alt="CITC Logo" className="nav-logo" />
+          <div className="nav-left-textbox">
+            <span className="nav-left-title">Capsort</span>
+            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
           </div>
         </div>
 
-        {/* Right: Navigation + User Info */}
-        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-          {/* Navigation Links */}
-          <div style={{ cursor: "pointer" }} onClick={() => navigate("/studentdash")}>
-            Projects
-          </div>
-          <div style={{ cursor: "pointer" }} onClick={() => navigate("/saved")}>
-            Saved Projects
-          </div>
-          <div
-            style={{
-              borderBottom: "1px solid black",
-              fontWeight: "700",
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/studentabout")}
-          >
-            About Us
-          </div>
+        <div className="nav-right">
+          <div className="nav-link" onClick={() => navigate("/studentdash")}>Projects</div>
+          <div className="nav-link" onClick={() => navigate("/saved")}>Saved Projects</div>
+          <div className="nav-link nav-link-active" onClick={() => navigate("/studentabout")}>About Us</div>
 
-          {/* User Info */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", position: "relative" }}>
-            {/* White circular container with user image */}
-            <div
-              style={{
-                width: "22px",
-                height: "22px",
-                borderRadius: "50%",
-                backgroundColor: "white",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                border: "0.5px solid #1A1851",
-                cursor: "pointer"
-              }}
-              onClick={() => setShowUserDropdown(!showUserDropdown)}
-            >
-              <img src={userImg} alt="User" style={{ width: "12px", height: "12px", borderRadius: "20%" }} />
+          <div className="nav-user-wrapper">
+            <div className="nav-user-icon" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+              <img src={userImg} alt="User" className="nav-user-img" />
             </div>
-
-            {/* Dropdown */}
             {showUserDropdown && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "28px",
-                  right: 0,
-                  backgroundColor: "white",
-                  border: "1px solid #d8d8d8",
-                  borderRadius: "4px",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-                  width: "120px",
-                  fontFamily: "Poppins",
-                  fontSize: "10px",
-                  zIndex: 1000
-                }}
-              >
-                <div
-                  style={{
-                    padding: "8px",
-                    cursor: "pointer",
-                    color: "black",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px"
-                  }}
-                  onClick={() => navigate("/login")}
-                >
-                  <img src={require("../assets/signout.png")} alt="Sign Out" style={{ width: "12px", height: "12px" }} />
+              <div className="nav-user-dropdown">
+                <div className="nav-user-dropdown-item" onClick={() => navigate("/login")}>
+                  <img src={require("../assets/signout.png")} alt="Sign Out" className="nav-user-dropdown-icon" />
                   <span>Sign Out</span>
                 </div>
               </div>
@@ -147,115 +71,58 @@ export default function NavigationBar({ studentName }) {
           </div>
         </div>
       </div>
-
-      {/* About Us Content */}
-      <div
-        style={{
-          marginTop: "35px",
-          height: "calc(100vh - 35px)",
-          overflowY: "auto",
-          padding: "20px",
-          backgroundColor: "#f8f8f8",
-        }}
-      >
+      
+      <div className="aboutus-wrapper">
         {/* Header */}
-        <div style={{ textAlign: "center", marginTop: "-2px", marginBottom: "15px" }}>
-          <h1 style={{ fontFamily: "Poppins", fontSize: "18px", color: "#1a1851", marginBottom: "10px" }}>
-            {content.title}
-          </h1>
-          <img 
-            src={capsort} 
-            alt="CapSort Logo" 
-            style={{ display: "block", margin: "0 auto 10px", width: "240px", height: "auto" }} 
-          />
+        <div className="aboutus-header">
+          <h1 className="aboutus-title">{content.title}</h1>
+          <img src={capsort} alt="CapSort Logo" className="aboutus-logo" />
         </div>
 
         {/* Mission Section */}
-        <div style={{
-          backgroundColor: "#1a1851",
-          borderRadius: "10px",
-          padding: "30px",
-          marginBottom: "20px",
-        }}>
-          <h2 style={{ textAlign: "center", fontFamily: "Poppins", fontSize: "18px", color: "white", marginBottom: "5px", fontWeight: "bold" }}>
-            Our Mission
-          </h2>
-          <p style={{ fontFamily: "Poppins", fontSize: "15px", color: "white", lineHeight: 1.6 }}>
-            {content.mission}
-          </p>
+        <div className="aboutus-mission">
+          <h2 className="aboutus-mission-title">Our Mission</h2>
+          <p className="aboutus-mission-desc">{content.mission}</p>
         </div>
 
         {/* Features Section */}
-        <div style={{ display: "flex", gap: "20px", marginBottom: "40px", flexWrap: "wrap" }}>
+        <div className="aboutus-features">
           {[
             { title: "Easy Search", desc: "Quickly find relevant capstone papers using our advanced filtering system." },
             { title: "Organized", desc: "Projects are categorized by field, year, and author for easy navigation." },
             { title: "Accessible", desc: "Open to students, faculty, and guests to explore innovative projects." },
           ].map((feature, index) => (
-            <div key={index} style={{
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "10px",
-              flex: "1 1 300px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
-            }}>
-              <h3 style={{ fontFamily: "Poppins", fontSize: "18px", color: "#1a1851", marginBottom: "10px" }}>{feature.title}</h3>
-              <p style={{ fontFamily: "Poppins", fontSize: "15px", color: "#1e1e1e" }}>{feature.desc}</p>
+            <div key={index} className="aboutus-feature-card">
+              <h3 className="aboutus-feature-title">{feature.title}</h3>
+              <p className="aboutus-feature-desc">{feature.desc}</p>
             </div>
           ))}
         </div>
 
         {/* Team Section */}
-        <div style={{ marginBottom: "40px" }}>
-          <h2 style={{ fontFamily: "Poppins", fontSize: "24px", color: "#1a1851", textAlign: "center", marginBottom: "30px" }}>
-            Our Team
-          </h2>
-          <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+        <div className="aboutus-team-section">
+          <h2 className="aboutus-team-title">Our Team</h2>
+          <div className="aboutus-team-cards">
             {teamMembers.map((member, index) => (
-              <div key={index} style={{
-                backgroundColor: "white",
-                padding: "20px",
-                borderRadius: "10px",
-                width: "250px",
-                textAlign: "center",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
-              }}>
-                <div style={{
-                  width: "96px",
-                  height: "96px",
-                  borderRadius: "50%",
-                  backgroundColor: "#1a1851",
-                  color: "white",
-                  fontSize: "28px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 15px auto"
-                }}>
-                  {member.initials}
-                </div>
-                <h3 style={{ fontFamily: "Poppins", fontSize: "18px", color: "#1a1851", marginBottom: "5px" }}>{member.name}</h3>
-                <p style={{ fontFamily: "Poppins", fontSize: "12px", color: "#FFD338", marginBottom: "10px" }}>{member.role}</p>
-                <p style={{ fontFamily: "Poppins", fontSize: "10px", color: "#1e1e1e" }}>{member.bio}</p>
+              <div key={index} className="aboutus-team-card">
+                <div className="aboutus-team-avatar">{member.initials}</div>
+                <h3 className="aboutus-team-name">{member.name}</h3>
+                <p className="aboutus-team-role">{member.role}</p>
+                <p className="aboutus-team-bio">{member.bio}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Contact Section */}
-        <div style={{
-          backgroundColor: "#1a1851",
-          color: "white",
-          borderRadius: "15px",
-          padding: "30px",
-          textAlign: "center"
-        }}>
-          <h2 style={{ fontFamily: "Poppins", fontSize: "14px", marginBottom: "15px" }}>Get in Touch</h2>
-          <p style={{ fontFamily: "Poppins", fontSize: "10px", marginBottom: "15px" }}>
-            Have questions or suggestions? We'd love to hear from you.
-          </p>
-          <p style={{ fontFamily: "Poppins", fontSize: "14px" }}>Email: {content.contactEmail}</p>
-        </div>
+        <div className="guest-contact">
+  <h2>Get in Touch</h2>
+  <p>Have questions or suggestions? We'd love to hear from you.</p>
+  <p className="email">
+    <a href={`mailto:${content.contactEmail}`} style={{ color: "white", textDecoration: "underline" }}>
+      {content.contactEmail}
+    </a>
+  </p>
+</div>
       </div>
     </>
   );

@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id               Int            @id @default(autoincrement())
+  fullName         String
+  contactNumber    String
+  email            String         @unique
+  password         String
+  role             String         // admin, student
+  resetToken       String?        // Password reset token
+  resetTokenExpiry DateTime?      // Token expiration time
+  createdAt        DateTime       @default(now())
+  projects         Project[]
+  savedProjects    SavedProject[]
+}
+
+model Project {
+  id         Int            @id @default(autoincrement())
+  title      String
+  author     String
+  year       Int
+  field      String         // IoT, Database, etc.
+  fileUrl    String
+  uploadedBy Int
+  uploader   User           @relation(fields: [uploadedBy], references: [id])
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  deletedAt  DateTime?      // Soft delete timestamp
+  isDeleted  Boolean        @default(false) // Soft delete flag
+  savedBy    SavedProject[]
+
+  @@unique([title, author])
+}
+
+model SavedProject {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  projectId Int
+  user      User     @relation(fields: [userId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, projectId])
+}
+
+model AboutContent {
+  id           Int      @id @default(autoincrement())
+  title        String
+  subtitle     String
+  mission      String   @db.Text
+  contactEmail String
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+}

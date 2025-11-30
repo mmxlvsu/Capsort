@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import SplashAnimation from "../assets/splash.json";
 import CapsortImage from "../assets/capsort.png"; 
 import backIcon from "../assets/back.png";
+import "./Signup.css";
 
 import userIcon from "../assets/user.png";
 import phoneIcon from "../assets/phone.png";
@@ -20,20 +21,44 @@ export default function Signup() {
   const [agreed, setAgreed] = useState(false); 
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Lottie container styles
+  // Responsive breakpoints
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth <= 768;
+  const isTablet = windowWidth > 768 && windowWidth <= 1024;
+  const isDesktop = windowWidth > 1024;
+
+  // Responsive styles based on screen size
+  const getResponsiveStyle = (desktop, tablet, mobile) => {
+    if (isMobile) return mobile;
+    if (isTablet) return tablet;
+    return desktop;
+  };
+
+  // Lottie container styles - responsive
   const lottieContainerStyles = {
     position: "relative",
     top: "0px",
     left: "0px",
-    width: "440px",
-    height: "440px",
+    width: getResponsiveStyle("50vw", "90vw", "90vw"),
+    height: getResponsiveStyle("90vh", "40vh", "40vh"),
+    marginRight: getResponsiveStyle("50px", "0px", "0px"),
+    marginBottom: getResponsiveStyle("0px", "20px", "20px"),
     backgroundColor: "rgba(26, 24, 81, 0.98)",
     borderRadius: "12px",
     boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    flexShrink: 0
   };
 
   const lottieStyles = {
@@ -43,36 +68,42 @@ export default function Signup() {
 
   const scrollContainerStyles = {
     width: lottieContainerStyles.width,
-    height: lottieContainerStyles.height,
+    height: getResponsiveStyle("90vh", "auto", "auto"),
+    minHeight: getResponsiveStyle("auto", "60vh", "50vh"),
     borderRadius: "12px",
     overflowY: "auto",
-    padding: "20px",
-    marginRight: "20px",
+    padding: getResponsiveStyle("20px", "15px", "10px"),
+    marginRight: getResponsiveStyle("20px", "0px", "0px"),
+    marginBottom: getResponsiveStyle("0px", "20px", "20px"),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0
   };
 
   const capsortStyles = {
-    width: "180px",
+    width: getResponsiveStyle("25vw", "40vw", "50vw"),
+    maxWidth: getResponsiveStyle("none", "300px", "250px"),
     height: "auto",
-    marginBottom: "-4px",
+    marginBottom: "4px",
     marginTop: "2px"
   };
 
   const titleStyles = {
-    fontSize: "0.6rem",
+    fontSize: getResponsiveStyle("0.9vw", "1.2rem", "1rem"),
     fontWeight: "500",
     textAlign: "center",
     color: "black",
     marginTop: "-1px",
-    marginBottom: "30px"
+    marginBottom: getResponsiveStyle("30px", "20px", "15px")
   };
 
   const inputContainerStyle = {
     position: "relative",
-    width: "60%",
-    height: "30px",
+    width: getResponsiveStyle("60%", "80%", "90%"),
+    height: getResponsiveStyle("5vh", "45px", "40px"),
+    minHeight: getResponsiveStyle("auto", "45px", "40px"),
     marginBottom: "6px",
     border: "0.5px solid #1A1851",
     borderRadius: "4px",
@@ -81,40 +112,40 @@ export default function Signup() {
 
   const inputStyle = {
     position: "absolute",
-    left: "40px",
-    top: "9px",
-    width: "280px",
+    left: getResponsiveStyle("40px", "40px", "35px"),
+    top: getResponsiveStyle("1.6vh", "12px", "10px"),
+    width: getResponsiveStyle("280px", "calc(100% - 80px)", "calc(100% - 70px)"),
     backgroundColor: "transparent",
     border: "none",
     outline: "none",
-    fontSize: "8px"
+    fontSize: getResponsiveStyle("0.7rem", "0.9rem", "0.85rem")
   };
 
   const iconStyle = {
     position: "absolute",
-    left: "15px",
-    top: "8px",
-    width: "12px",
-    height: "12px"
+    left: getResponsiveStyle("15px", "12px", "10px"),
+    top: getResponsiveStyle("1.7vh", "12px", "10px"),
+    width: getResponsiveStyle("12px", "16px", "18px"),
+    height: getResponsiveStyle("12px", "16px", "18px")
   };
 
   const toggleIconStyle = {
     position: "absolute",
-    right: "12px",
-    top: "9px",
-    width: "12px",
-    height: "12px",
+    right: getResponsiveStyle("12px", "12px", "10px"),
+    top: getResponsiveStyle("1.7vh", "12px", "10px"),
+    width: getResponsiveStyle("12px", "16px", "18px"),
+    height: getResponsiveStyle("12px", "16px", "18px"),
     cursor: "pointer"
   };
 
   const buttonStyles = {
     backgroundColor: "#1a1851",
-    height: "30px",
+    height: getResponsiveStyle("5vh", "45px", "40px"),
     borderRadius: "6px",
-    width: "60%",
+    width: getResponsiveStyle("60%", "80%", "90%"),
     marginTop: "16px",
     color: "#ffffff",
-    fontSize: "10px",
+    fontSize: getResponsiveStyle("0.8vw", "1rem", "0.9rem"),
     cursor: "pointer",
     fontWeight: "bold",
     border: "none",
@@ -137,10 +168,11 @@ export default function Signup() {
 
   const modalContentStyle = {
     backgroundColor: "#fff",
-    padding: "20px",
+    padding: getResponsiveStyle("20px", "15px", "15px"),
     borderRadius: "8px",
-    width: "350px",
-    maxHeight: "420px",
+    width: getResponsiveStyle("350px", "90vw", "95vw"),
+    maxWidth: getResponsiveStyle("none", "500px", "400px"),
+    maxHeight: getResponsiveStyle("420px", "80vh", "80vh"),
     overflowY: "auto",
     textAlign: "center"
   };
@@ -158,165 +190,163 @@ export default function Signup() {
 
 
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-gray-100">
+    <div className={`signup-container ${isMobile || isTablet ? 'signup-mobile-layout' : ''}`}>
       <div
-      style={{
-        position: "absolute",
-        top: "25px",  
-        left: "40px",  
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        zIndex: 100
-      }}
-      onClick={() => navigate("/splash")}
-    >
-      <img
-        src={backIcon}
-        alt="Back"
-        style={{ width: "15px", height: "15px", marginRight: "8px" }}
-      />
-    </div>
+        className="signup-back-button"
+        onClick={() => navigate("/splash")}
+      >
+        <img
+          src={backIcon}
+          alt="Back"
+          className="signup-back-icon"
+        />
+      </div>
 
       <div style={scrollContainerStyles}>
-        <img src={CapsortImage} alt="Capsort Logo" style={capsortStyles} />
-        <h2 style={titleStyles}>Capstone Archiving and Sorting System</h2>
+        <div>
+          <img src={CapsortImage} alt="Capsort Logo" style={capsortStyles} />
+          <h2 style={titleStyles}>Capstone Archiving and Sorting System</h2>
+        </div>
 
-        <form className="w-full flex flex-col items-center">
-          {/* Full Name */}
-          <div style={inputContainerStyle}>
-            <img src={userIcon} alt="User" style={iconStyle} />
-            <input type="text" placeholder="Full Name" style={inputStyle} />
-          </div>
+        <div className="w-full">
+          <form className="w-full flex flex-col items-center">
+            {/* Full Name */}
+            <div style={inputContainerStyle}>
+              <img src={userIcon} alt="User" style={iconStyle} />
+              <input type="text" placeholder="Full Name" style={inputStyle} />
+            </div>
+            {/* Contact Number */}
+            <div style={inputContainerStyle}>
+              <img src={phoneIcon} alt="Phone" style={iconStyle} />
+              <input type="tel" placeholder="Contact Number" style={inputStyle} />
+            </div>
+            {/* Email */}
+            <div style={inputContainerStyle}>
+              <img src={mailIcon} alt="Mail" style={iconStyle} />
+              <input type="email" placeholder="Email Address" style={inputStyle} />
+            </div>
+            {/* Password */}
+            <div style={{ width: "100%", marginBottom: "6px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div style={inputContainerStyle}>
+                <img src={passIcon} alt="Password" style={iconStyle} />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  style={inputStyle}
+                />
+                <img
+                  src={showPassword ? showIcon : hideIcon}
+                  alt="Toggle Password"
+                  style={toggleIconStyle}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </div>
+              <div style={{ width: getResponsiveStyle("60%", "80%", "90%") }}>
+                <p style={{ fontSize: getResponsiveStyle("0.65rem", "0.75rem", "0.7rem"), color: "gray", marginTop: "2px", marginLeft: "0", textAlign: "left" }}>
+                  Password must be 8-16 characters
+                </p>
+              </div>
+            </div>
 
-          {/* Contact Number */}
-          <div style={inputContainerStyle}>
-            <img src={phoneIcon} alt="Phone" style={iconStyle} />
-            <input type="tel" placeholder="Contact Number" style={inputStyle} />
-          </div>
-
-          {/* Email */}
-          <div style={inputContainerStyle}>
-            <img src={mailIcon} alt="Mail" style={iconStyle} />
-            <input type="email" placeholder="Email Address" style={inputStyle} />
-          </div>
-
-          {/* Password */}
-          <div style={inputContainerStyle}>
-            <img src={passIcon} alt="Password" style={iconStyle} />
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              style={inputStyle}
-            />
-            <img
-              src={showPassword ? showIcon : hideIcon}
-              alt="Toggle Password"
-              style={toggleIconStyle}
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          </div>
-          <p style={{ fontSize: "7.5px", color: "gray", marginTop: "-3px", marginLeft: "-100px" }}>
-            Password must be 8-16 characters
-          </p>
-
-          {/* Confirm Password */}
-          <div style={inputContainerStyle}>
-            <img src={passIcon} alt="Confirm Password" style={iconStyle} />
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              style={inputStyle}
-            />
-            <img
-              src={showConfirmPassword ? showIcon : hideIcon}
-              alt="Toggle Confirm Password"
-              style={toggleIconStyle}
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            />
-          </div>
-          <p style={{ fontSize: "7.5px", color: "gray", marginTop: "-3px", marginLeft: "-146px" }}>
-            Password must match
-          </p>
-
-          {/* Terms Checkbox */}
-          <div
-            style={{
-              position: "relative",
-              top: "2px",
-              left: "2px",
-              display: "flex",
-              alignItems: "center",
-              width: "60%",
-              marginTop: "5px",
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              id="termsCheckbox"
+            {/* Confirm Password */}
+            <div style={{ width: "100%", marginBottom: "6px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div style={inputContainerStyle}>
+                <img src={passIcon} alt="Confirm Password" style={iconStyle} />
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  style={inputStyle}
+                />
+                <img
+                  src={showConfirmPassword ? showIcon : hideIcon}
+                  alt="Toggle Confirm Password"
+                  style={toggleIconStyle}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                />
+              </div>
+              <div style={{ width: getResponsiveStyle("60%", "80%", "90%") }}>
+                <p style={{ fontSize: getResponsiveStyle("0.65rem", "0.75rem", "0.7rem"), color: "gray", marginTop: "2px", marginLeft: "0", textAlign: "left" }}>
+                  Password must match
+                </p>
+              </div>
+            </div>
+            {/* Terms Checkbox */}
+            <div
               style={{
-                width: "10px",
-                height: "10px",
-                marginRight: "8px",
-                cursor: "pointer",
-                accentColor: "#1a1851"
+                position: "relative",
+                top: "2px",
+                left: "2px",
+                display: "flex",
+                alignItems: "center",
+                width: "60%",
+                marginTop: "5px",
               }}
-            />
-            <label
-              htmlFor="termsCheckbox"
-              style={{ fontSize: "7px", color: "#333" }}
             >
-              I agree to{" "}
-              <span
-                style={{ color: "#1a1851", fontWeight: "bold", cursor: "pointer" }}
-                onClick={() => setShowTerms(true)}
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                id="termsCheckbox"
+                style={{
+                  width: getResponsiveStyle("10px", "14px", "16px"),
+                  height: getResponsiveStyle("10px", "14px", "16px"),
+                  marginRight: "8px",
+                  cursor: "pointer",
+                  accentColor: "#1a1851"
+                }}
+              />
+              <label
+                htmlFor="termsCheckbox"
+                style={{ fontSize: getResponsiveStyle("0.7vw", "0.85rem", "0.8rem"), color: "#333" }}
               >
-                Terms of Service
-              </span>{" "}
-              &{" "}
-              <span
-                style={{ color: "#1a1851", fontWeight: "bold", cursor: "pointer" }}
-                onClick={() => setShowPrivacy(true)}
-              >
-                Privacy Policy
-              </span>
-            </label>
+                I agree to{" "}
+                <span
+                  style={{ color: "#1a1851", fontWeight: "bold", cursor: "pointer" }}
+                  onClick={() => setShowTerms(true)}
+                >
+                  Terms of Service
+                </span>{" "}
+                &{" "}
+                <span
+                  style={{ color: "#1a1851", fontWeight: "bold", cursor: "pointer" }}
+                  onClick={() => setShowPrivacy(true)}
+                >
+                  Privacy Policy
+                </span>
+              </label>
+            </div>
+            {/* Create Account Button */}
+            <button
+              type="submit"
+              disabled={!agreed}
+              style={{
+                ...buttonStyles,
+                opacity: agreed ? 1 : 0.5,
+                cursor: agreed ? "pointer" : "not-allowed"
+              }}
+              onMouseEnter={(e) => { if (agreed) e.currentTarget.style.backgroundColor = buttonHoverStyles.backgroundColor }}
+              onMouseLeave={(e) => { if (agreed) e.currentTarget.style.backgroundColor = buttonStyles.backgroundColor }}
+            >
+              Create Account
+            </button>
+          </form>
+          {/* Already have an account */}
+          <div style={{ marginTop: getResponsiveStyle("30px", "20px", "15px"), fontSize: getResponsiveStyle("0.9vw", "0.9rem", "0.85rem"), textAlign: "center" }}>
+            Already have an account?{" "}
+            <span
+              style={{
+                fontWeight: "bold",
+                color: "#1a1851",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = "underline"}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = "none"}
+              onClick={() => navigate("/signstudent")}
+            >
+              Log in here.
+            </span>
           </div>
-
-          {/* Create Account Button */}
-          <button
-            type="submit"
-            disabled={!agreed}
-            style={{
-              ...buttonStyles,
-              opacity: agreed ? 1 : 0.5,
-              cursor: agreed ? "pointer" : "not-allowed"
-            }}
-            onMouseEnter={(e) => { if (agreed) e.currentTarget.style.backgroundColor = buttonHoverStyles.backgroundColor }}
-            onMouseLeave={(e) => { if (agreed) e.currentTarget.style.backgroundColor = buttonStyles.backgroundColor }}
-          >
-            Create Account
-          </button>
-        </form>
-
-        {/* Already have an account */}
-        <div style={{ marginTop: "30px", fontSize: "8px", textAlign: "center" }}>
-          Already have an account?{" "}
-          <span
-            style={{
-              fontWeight: "bold",
-              color: "#1a1851",
-              cursor: "pointer",
-              textDecoration: "none",
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.textDecoration = "underline"}
-            onMouseLeave={(e) => e.currentTarget.style.textDecoration = "none"}
-            onClick={() => navigate("/signstudent")}
-          >
-            Log in here.
-          </span>
         </div>
       </div>
 

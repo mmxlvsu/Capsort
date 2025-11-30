@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import SplashAnimation from "../assets/splash.json";
 import CapsortImage from "../assets/capsort.png"; 
 import backIcon from "../assets/back.png";
-import "./Signup.css";
+import "../styles/Signup.css";
 
 import userIcon from "../assets/user.png";
 import phoneIcon from "../assets/phone.png";
@@ -12,7 +12,6 @@ import mailIcon from "../assets/mail.png";
 import passIcon from "../assets/pass.png";
 import showIcon from "../assets/show.png";
 import hideIcon from "../assets/hide.png"; 
-import Splash from "./Splash";
 
 export default function Signup() {
   const navigate = useNavigate();

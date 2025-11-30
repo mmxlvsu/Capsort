@@ -1,17 +1,17 @@
-/* ===== BASE STYLES ===== */
+/* ===== BASE CONTAINER ===== */
 .signup-container {
+  display: flex;
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #f3f4f6;
   position: relative;
   overflow-x: hidden;
   padding: 0 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Back Button */
+/* ===== BACK BUTTON ===== */
 .signup-back-button {
   position: absolute;
   top: 50px;
@@ -21,70 +21,93 @@
   align-items: center;
   z-index: 100;
 }
+
 .signup-back-icon {
   width: 32px;
   height: 32px;
 }
 
-/* Left Scroll / Form */
+/* ===== LEFT SCROLL / FORM ===== */
 .signup-scroll-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 40px;
   width: 50vw;
   min-height: 90vh;
   margin-right: 50px;
   overflow-y: auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
+
+/* ===== LOGO AND TITLE ===== */
 .signup-logo {
   width: 25vw;
   max-width: 300px;
-}
-.signup-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 50px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-/* Tabs */
+.signup-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* ===== TABS ===== */
 .signup-tab-container {
   display: flex;
   margin-bottom: 30px;
 }
+
 .signup-tab {
   padding: 10px 20px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-right: 20px;
   font-weight: 500;
-  color: #666666;
+  color: #666;
 }
+
 .signup-tab.active {
   border-bottom: 2px solid #1a1851;
   color: #1a1851;
 }
 
-/* Form Inputs */
+/* ===== FORM ===== */
+.signup-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== INPUTS ===== */
+.signup-input-wrapper,
 .signup-input-container {
   position: relative;
   width: 100%;
   min-height: 45px;
-  margin-bottom: 6px;
-  border: 0.5px solid #1A1851;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   background-color: white;
 }
+
 .signup-input {
   width: calc(100% - 60px);
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 12px 0 12px 40px;
 }
+
 .signup-icon {
   position: absolute;
   top: 50%;
@@ -93,6 +116,7 @@
   width: 20px;
   height: 20px;
 }
+
 .signup-toggle-icon {
   position: absolute;
   top: 50%;
@@ -103,13 +127,28 @@
   cursor: pointer;
 }
 
-/* Checkbox + Forgot Password */
+/* ===== CHECKBOX + REMEMBER ME ===== */
+.signup-checkbox-wrapper,
 .signup-checkbox-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   margin-top: 10px;
 }
+
+.signup-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.signup-label,
+.signup-checkbox-container label {
+  font-size: 0.8rem;
+  color: #333;
+}
+
 .signup-checkbox-container input[type="checkbox"] {
   width: 20px;
   height: 20px;
@@ -117,20 +156,24 @@
   cursor: pointer;
   accent-color: #1a1851;
 }
-.signup-checkbox-container label {
-  font-size: 0.8rem;
-  color: #333;
-}
+
 .signup-checkbox-container span {
   color: #1a1851;
   font-weight: bold;
   cursor: pointer;
 }
 
-/* Buttons */
+.signup-forgot-password {
+  font-size: 0.85rem;
+  color: #1a1851;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ===== BUTTONS ===== */
 .signup-button {
   background-color: #1a1851;
-  color: white;
+  color: #fff;
   font-weight: bold;
   font-size: 0.9rem;
   border: none;
@@ -142,33 +185,34 @@
   transition: background-color 0.3s;
   padding: 10px;
 }
+
 .signup-button:hover {
   background-color: #000;
 }
 
-/* Login Redirect Text */
+.signup-redirect,
 .signup-login-text {
-  margin-top: 70px;
+  margin-top: 20px;
   font-size: 0.85rem;
   text-align: center;
 }
+
+.signup-redirect-link,
 .signup-login-text span {
-  font-weight: bold;
   color: #1a1851;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-.signup-login-text span:hover {
   text-decoration: underline;
 }
 
-/* Lottie Animation */
-.signup-lottie {
-  position: relative;
+/* ===== LOTTIE ANIMATION ===== */
+.signup-lottie,
+.signup-lottie-container {
+  flex: 1;
   width: 45vw;
   height: 90vh;
   margin-right: 50px;
-  background-color: rgba(26, 24, 81, 0.98);
+  background-color: rgba(26,24,81,0.98);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   display: flex;
@@ -177,7 +221,12 @@
   flex-shrink: 0;
 }
 
-/* Modal Styles */
+.signup-lottie-animation {
+  width: 80%;
+  height: auto;
+}
+
+/* ===== MODAL ===== */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -187,39 +236,70 @@
   align-items: center;
   z-index: 50;
 }
+
 .modal-content {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
   width: 600px;
-  max-width: 1000px;
+  max-width: 90%;
   max-height: 80vh;
   overflow-y: auto;
   text-align: center;
 }
-.modal-content p {
-  text-align: justify;
-  font-size: 18px;
-}
-.modal-close-btn {
-  margin-top: 12px;
-  padding: 4px 15px;
-  background-color: #1a1851;
-  color: #fff;
-  border: none;
-  font-size: 20px;
-  border-radius: 4px;
+
+.modal-title {
+  font-size: 1.2rem;
   font-weight: bold;
+}
+
+.modal-text {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-button,
+.modal-send-link,
+.modal-cancel,
+.modal-close-btn {
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* Responsive Adjustments */
+.modal-send-link,
+.modal-close-btn {
+  background-color: #1a1851;
+  color: #fff;
+}
+
+.modal-send-link:hover,
+.modal-close-btn:hover {
+  background-color: #000;
+}
+
+.modal-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.modal-cancel:hover {
+  background-color: #999;
+}
+
+/* ===== RESPONSIVENESS ===== */
 @media (max-width: 1024px) {
   .signup-container {
     flex-direction: column;
-    justify-content: flex-start;
     padding-top: 60px;
   }
+
   .signup-scroll-container,
   .signup-lottie {
     width: 90vw;
@@ -227,6 +307,7 @@
     margin-right: 0;
     margin-bottom: 20px;
   }
+
   .signup-logo {
     width: 40vw;
   }
@@ -238,6 +319,7 @@
     width: 90vw;
     min-height: 40vh;
   }
+
   .signup-logo {
     width: 50vw;
   }
@@ -249,6 +331,7 @@
     width: 95vw;
     min-height: 35vh;
   }
+
   .signup-logo {
     width: 50vw;
   }

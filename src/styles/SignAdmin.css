@@ -1,18 +1,18 @@
-/* ===== BASE STYLES ===== */
-.signup-container {
+/* ===== BASE CONTAINER ===== */
+.signadmin-container {
+  display: flex;
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #f3f4f6;
   position: relative;
   overflow-x: hidden;
   padding: 0 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Back Button */
-.signup-back-button {
+/* ===== BACK BUTTON ===== */
+.signadmin-back-button {
   position: absolute;
   top: 50px;
   left: 60px;
@@ -21,71 +21,93 @@
   align-items: center;
   z-index: 100;
 }
-.signup-back-icon {
+
+.signadmin-back-button img {
   width: 32px;
   height: 32px;
 }
 
-/* Left Scroll / Form */
-.signup-scroll-container {
+/* ===== SCROLL / FORM ===== */
+.signadmin-scroll-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 40px;
   width: 50vw;
   min-height: 90vh;
   margin-right: 50px;
   overflow-y: auto;
-}
-.signup-logo {
-  width: 25vw;
-  max-width: 300px;
-}
-.signup-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-  margin-bottom: 50px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
-/* Tabs */
-.signup-tab-container {
+/* ===== LOGO AND TITLE ===== */
+.signadmin-logo {
+  width: 25vw;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.signadmin-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* ===== TABS ===== */
+.signadmin-tab-container {
   display: flex;
   margin-bottom: 30px;
 }
-.signup-tab {
+
+.signadmin-tab {
   padding: 10px 20px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-right: 20px;
   font-weight: 500;
-  color: #666666;
+  color: #666;
 }
-.signup-tab.active {
+
+.signadmin-tab.active {
   border-bottom: 2px solid #1a1851;
   color: #1a1851;
 }
 
-/* Form Inputs */
-.signup-input-container {
+/* ===== FORM ===== */
+.signadmin-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== INPUTS ===== */
+.signadmin-input-container {
   position: relative;
   width: 100%;
   min-height: 45px;
-  margin-bottom: 6px;
-  border: 0.5px solid #1A1851;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   background-color: white;
 }
-.signup-input {
+
+.signadmin-input {
   width: calc(100% - 60px);
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 12px 0 12px 40px;
 }
-.signup-icon {
+
+.signadmin-icon {
   position: absolute;
   top: 50%;
   left: 12px;
@@ -93,7 +115,8 @@
   width: 20px;
   height: 20px;
 }
-.signup-toggle-icon {
+
+.signadmin-toggle-icon {
   position: absolute;
   top: 50%;
   right: 12px;
@@ -103,34 +126,31 @@
   cursor: pointer;
 }
 
-/* Checkbox + Forgot Password */
-.signup-checkbox-container {
+/* ===== CHECKBOX + REMEMBER ME ===== */
+.signadmin-remember-container {
   display: flex;
   align-items: center;
+  gap: 5px;
   width: 100%;
   margin-top: 10px;
 }
-.signup-checkbox-container input[type="checkbox"] {
+
+.signadmin-remember-container input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  margin-right: 8px;
   cursor: pointer;
   accent-color: #1a1851;
 }
-.signup-checkbox-container label {
+
+.signadmin-remember-container label {
   font-size: 0.8rem;
   color: #333;
 }
-.signup-checkbox-container span {
-  color: #1a1851;
-  font-weight: bold;
-  cursor: pointer;
-}
 
-/* Buttons */
-.signup-button {
+/* ===== BUTTONS ===== */
+.signadmin-button {
   background-color: #1a1851;
-  color: white;
+  color: #fff;
   font-weight: bold;
   font-size: 0.9rem;
   border: none;
@@ -142,33 +162,49 @@
   transition: background-color 0.3s;
   padding: 10px;
 }
-.signup-button:hover {
+
+.signadmin-button:hover {
   background-color: #000;
 }
 
-/* Login Redirect Text */
-.signup-login-text {
-  margin-top: 70px;
+/* ===== ADMIN NOTE ===== */
+.signadmin-note {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: rgba(255, 211, 56, 0.1);
+  border: 1px solid rgba(255, 211, 56, 0.3);
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.signadmin-note p {
+  font-size: 0.8rem;
+  color: #1a1851;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== REDIRECT ===== */
+.signadmin-redirect {
+  margin-top: 30px;
   font-size: 0.85rem;
   text-align: center;
 }
-.signup-login-text span {
-  font-weight: bold;
+
+.signadmin-redirect span {
   color: #1a1851;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-.signup-login-text span:hover {
   text-decoration: underline;
 }
 
-/* Lottie Animation */
-.signup-lottie {
-  position: relative;
+/* ===== LOTTIE ANIMATION ===== */
+.signadmin-lottie-container {
+  flex: 1;
   width: 45vw;
   height: 90vh;
   margin-right: 50px;
-  background-color: rgba(26, 24, 81, 0.98);
+  background-color: rgba(26,24,81,0.98);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   display: flex;
@@ -177,79 +213,51 @@
   flex-shrink: 0;
 }
 
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 50;
-}
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 600px;
-  max-width: 1000px;
-  max-height: 80vh;
-  overflow-y: auto;
-  text-align: center;
-}
-.modal-content p {
-  text-align: justify;
-  font-size: 18px;
-}
-.modal-close-btn {
-  margin-top: 12px;
-  padding: 4px 15px;
-  background-color: #1a1851;
-  color: #fff;
-  border: none;
-  font-size: 20px;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
+.signadmin-lottie {
+  width: 80%;
+  height: auto;
 }
 
-/* Responsive Adjustments */
+/* ===== RESPONSIVENESS ===== */
 @media (max-width: 1024px) {
-  .signup-container {
+  .signadmin-container {
     flex-direction: column;
-    justify-content: flex-start;
     padding-top: 60px;
   }
-  .signup-scroll-container,
-  .signup-lottie {
+
+  .signadmin-scroll-container,
+  .signadmin-lottie-container {
     width: 90vw;
     min-height: 40vh;
     margin-right: 0;
     margin-bottom: 20px;
   }
-  .signup-logo {
+
+  .signadmin-logo {
     width: 40vw;
   }
 }
 
 @media (max-width: 768px) {
-  .signup-scroll-container,
-  .signup-lottie {
+  .signadmin-scroll-container,
+  .signadmin-lottie-container {
     width: 90vw;
     min-height: 40vh;
   }
-  .signup-logo {
+
+  .signadmin-logo {
     width: 50vw;
   }
 }
 
 @media (max-width: 480px) {
-  .signup-scroll-container,
-  .signup-lottie {
+  .signadmin-scroll-container,
+  .signadmin-lottie-container {
     width: 95vw;
     min-height: 35vh;
   }
-  .signup-logo {
+
+  .signadmin-logo {
     width: 50vw;
   }
 }

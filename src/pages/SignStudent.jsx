@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { authService } from "../services/auth";
 
 import SplashAnimation from "../assets/splash.json"; 
 import CapsortImage from "../assets/capsort.png";     
@@ -15,11 +17,16 @@ import "../styles/SignStudent.css"; // merged CSS
 
 export default function SignTabs() {
   const navigate = useNavigate();
+  const { login, adminLogin } = useAuth();
   const [activeTab, setActiveTab] = useState("student");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false);
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState("");
 
   // New states to track inputs for each tab
   const [studentEmail, setStudentEmail] = useState("");
@@ -27,8 +34,38 @@ export default function SignTabs() {
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
 
-  const isStudentButtonDisabled = !studentEmail || !studentPassword;
-  const isAdminButtonDisabled = !adminEmail || !adminPassword;
+  const isStudentButtonDisabled = !studentEmail || !studentPassword || loading;
+  const isAdminButtonDisabled = !adminEmail || !adminPassword || loading;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      let result;
+      
+      if (activeTab === "student") {
+        result = await login(studentEmail, studentPassword);
+        if (result.success) {
+          navigate("/studentdash");
+        }
+      } else {
+        result = await adminLogin(adminEmail, adminPassword);
+        if (result.success) {
+          navigate("/admindash");
+        }
+      }
+
+      if (!result.success) {
+        setError(result.error || "Login failed. Please check your credentials.");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -41,6 +78,19 @@ export default function SignTabs() {
       <div className="signup-scroll-container">
         <img src={CapsortImage} alt="Capsort Logo" className="signup-logo" />
         <h2 className="signup-title">Capstone Archiving and Sorting System</h2>
+
+        {error && (
+          <div style={{ 
+            color: 'red', 
+            padding: '10px', 
+            marginBottom: '10px', 
+            backgroundColor: '#ffe6e6',
+            borderRadius: '5px',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
 
         <div className="signup-tab-container">
   <div
@@ -63,7 +113,7 @@ export default function SignTabs() {
 
 
         {/* Form */}
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={handleSubmit}>
           <div className="signup-input-wrapper">
             <img src={mailIcon} alt="Mail" className="signup-icon" />
             <input
@@ -129,7 +179,7 @@ export default function SignTabs() {
               opacity: (activeTab === "student" ? isStudentButtonDisabled : isAdminButtonDisabled) ? 0.6 : 1
             }}
           >
-            Sign in
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
@@ -174,19 +224,62 @@ export default function SignTabs() {
                 className="signup-input"
               />
             </div>
+            {forgotPasswordMessage && (
+              <div style={{ 
+                color: forgotPasswordMessage.includes('sent') ? 'green' : 'red', 
+                padding: '10px', 
+                marginTop: '10px',
+                backgroundColor: forgotPasswordMessage.includes('sent') ? '#e6ffe6' : '#ffe6e6',
+                borderRadius: '5px',
+                textAlign: 'center',
+                fontSize: '14px'
+              }}>
+                {forgotPasswordMessage}
+              </div>
+            )}
             <div className="modal-buttons">
               <button
                 className="modal-send-link"
-                onClick={() => {
-                  alert(`Reset link sent to ${forgotEmail}`);
-                  setShowForgotModal(false);
+                disabled={!forgotEmail || forgotPasswordLoading}
+                onClick={async () => {
+                  setForgotPasswordLoading(true);
+                  setForgotPasswordMessage("");
+                  
+                  const result = await authService.requestPasswordReset(forgotEmail);
+                  
+                  if (result.success) {
+                    setForgotPasswordMessage(result.message);
+                    // In development, log the reset link
+                    if (result.resetLink) {
+                      console.log('Password Reset Link:', result.resetLink);
+                      console.log('Reset Token:', result.resetToken);
+                    }
+                    setTimeout(() => {
+                      setShowForgotModal(false);
+                      setForgotEmail("");
+                      setForgotPasswordMessage("");
+                    }, 3000);
+                  } else {
+                    setForgotPasswordMessage(result.error || 'Failed to send reset link');
+                  }
+                  
+                  setForgotPasswordLoading(false);
+                }}
+                style={{
+                  cursor: (!forgotEmail || forgotPasswordLoading) ? "not-allowed" : "pointer",
+                  opacity: (!forgotEmail || forgotPasswordLoading) ? 0.6 : 1
                 }}
               >
-                Send Reset Link
+                {forgotPasswordLoading ? "Sending..." : "Send Reset Link"}
               </button>
               <button
                 className="modal-cancel"
-                onClick={() => setShowForgotModal(false)}
+                onClick={() => {
+                  setShowForgotModal(false);
+                  setForgotEmail("");
+                  setForgotPasswordMessage("");
+                }}
+                disabled={forgotPasswordLoading}
               >
                 Cancel
               </button>

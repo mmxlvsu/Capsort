@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Splash from "./pages/Splash";
 import Signup from "./pages/Signup";
 import SignStudent from "./pages/SignStudent";
@@ -11,6 +13,7 @@ import StudentDash from "./pages/StudentDash";
 import StudentAbout from "./pages/StudentAbout";
 import Verify from "./pages/Verify";
 import Reset from "./pages/Reset";
+import ResetPassword from "./pages/ResetPassword";
 import Saved from "./pages/Saved";
 import AdminDash from "./pages/AdminDash";
 import AdminAnalytics from "./pages/AdminAnalytics";
@@ -19,22 +22,50 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
+    <AuthProvider>
+      <Router>
         <Routes>
-  <Route path="/" element={<Splash />} />      {/* <-- default/root */}
-  <Route path="/splash" element={<Splash />} />
-  <Route path="/signup" element={<Signup />} />
-  <Route path="/signstudent" element={<SignStudent />} />
-  <Route path="/guest" element={<Guest />} />
-  <Route path="/guestabout" element={<GuestAbout />} />
-  <Route path="/studentdash" element={<StudentDash />} />
-  <Route path="/studentabout" element={<StudentAbout />} />
-  <Route path="/reset" element={<Reset />} />
-  <Route path="/verify" element={<Verify />} />
-  <Route path="/saved" element={<Saved />} />
-  <Route path="/admindash" element={<AdminDash />} />
-  <Route path="/adminanalytics" element={<AdminAnalytics />} />
-      </Routes>
-    </Router>
+          {/* Public Routes */}
+          <Route path="/" element={<Splash />} />
+          <Route path="/splash" element={<Splash />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signstudent" element={<SignStudent />} />
+          <Route path="/guest" element={<Guest />} />
+          <Route path="/guestabout" element={<GuestAbout />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify" element={<Verify />} />
+          
+          {/* Student Protected Routes */}
+          <Route path="/studentdash" element={
+            <ProtectedRoute requireStudent={true}>
+              <StudentDash />
+            </ProtectedRoute>
+          } />
+          <Route path="/studentabout" element={
+            <ProtectedRoute requireStudent={true}>
+              <StudentAbout />
+            </ProtectedRoute>
+          } />
+          <Route path="/saved" element={
+            <ProtectedRoute requireStudent={true}>
+              <Saved />
+            </ProtectedRoute>
+          } />
+          
+          {/* Admin Protected Routes */}
+          <Route path="/admindash" element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminDash />
+            </ProtectedRoute>
+          } />
+          <Route path="/adminanalytics" element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminAnalytics />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>
 );

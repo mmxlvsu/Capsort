@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import SplashAnimation from "../assets/splash.json";
 import CapsortImage from "../assets/capsort.png";
+import { authService } from "../services/auth";
 
 import backIcon from "../assets/back.png";
 import userIcon from "../assets/user.png";
@@ -26,6 +27,8 @@ export default function Signup() {
   const [agreed, setAgreed] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Disable button if any field is empty or checkbox not checked or passwords mismatch
   const isButtonDisabled =
@@ -35,7 +38,56 @@ export default function Signup() {
     !password ||
     !confirmPassword ||
     password !== confirmPassword ||
-    !agreed;
+    !agreed ||
+    loading;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    
+    // Client-side validation
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+    
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+      setError("Password must contain at least one lowercase letter, one uppercase letter, and one number");
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+    console.log('🔧 Submitting registration...', { fullName, contact, email });
+
+    try {
+      const result = await authService.register({
+        fullName,
+        contactNumber: contact,
+        email,
+        password
+      });
+
+      console.log('📥 Registration result:', result);
+
+      if (result.success) {
+        alert("Registration successful! Please login.");
+        navigate("/signstudent");
+      } else {
+        console.error('❌ Registration failed:', result.error);
+        setError(result.error || result.message || "Registration failed. Please try again.");
+      }
+    } catch (err) {
+      console.error('❌ Registration error:', err);
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -49,7 +101,20 @@ export default function Signup() {
         <img src={CapsortImage} alt="Capsort Logo" className="signup-logo" />
         <h2 className="signup-title">Capstone Archiving and Sorting System</h2>
 
-        <form className="signup-form" onSubmit={(e) => e.preventDefault()}>
+        {error && (
+          <div style={{ 
+            color: 'red', 
+            padding: '10px', 
+            marginBottom: '10px', 
+            backgroundColor: '#ffe6e6',
+            borderRadius: '5px',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
+
+        <form className="signup-form" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div className="signup-input-container">
             <img src={userIcon} alt="User" className="signup-icon" />
@@ -154,7 +219,7 @@ export default function Signup() {
               opacity: isButtonDisabled ? 0.6 : 1
             }}
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 

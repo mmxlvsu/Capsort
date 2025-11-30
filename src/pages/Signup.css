@@ -1,0 +1,92 @@
+/* Signup Component Responsive Styles */
+
+/* Base styles - Desktop (default) */
+.signup-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f4f6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.signup-back-button {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+}
+
+.signup-back-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+/* Tablet breakpoint (1024px and below) */
+@media (max-width: 1024px) {
+  .signup-container {
+    flex-direction: column;
+    padding: 20px;
+    height: auto;
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding-top: 60px;
+  }
+
+  .signup-container.signup-mobile-layout {
+    flex-direction: column;
+  }
+
+  .signup-back-button {
+    top: 15px;
+    left: 20px;
+  }
+
+  .signup-back-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Mobile breakpoint (768px and below) */
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 15px;
+    padding-top: 50px;
+  }
+
+  .signup-back-button {
+    top: 10px;
+    left: 15px;
+  }
+
+  .signup-back-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Small mobile breakpoint (480px and below) */
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 10px;
+    padding-top: 45px;
+  }
+
+  .signup-back-button {
+    top: 8px;
+    left: 10px;
+  }
+
+  .signup-back-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+

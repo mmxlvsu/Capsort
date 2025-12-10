@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import citc from "../assets/citc.png";
+import userImg from "../assets/user.png";
 import filterIcon from "../assets/filter.png";
 import searchIcon from "../assets/search.png";
 import dropdownIcon from "../assets/dropdown.png";
-import citc from "../assets/citc.png";
+
 import "../styles/Guest.css";
 
-export default function FilterSidebarUI() {
+export default function NavigationBar() {
   const navigate = useNavigate();
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
 
@@ -16,139 +18,130 @@ export default function FilterSidebarUI() {
   const [fieldOpen, setFieldOpen] = useState(false);
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
-  // Active tab
-  const [activeTab, setActiveTab] = useState("Projects");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    if (tab === "About Us") navigate("/guestabout");
-  };
+  const totalPapers = 20;
 
   return (
-    <div className="page-container">
-      {/* Navbar */}
-      <div className="guest-nav">
-        <div className="guest-nav-left">
-          <img src={citc} className="guest-nav-left-logo" />
-          <div className="guest-nav-left-text">
-            <span>Capsort</span>
-            <span>Capsort Archiving and Sorting System</span>
+    <>
+      {/* NAVBAR */}
+      <div className="guest-navbar">
+        <div className="guest-navbar-left">
+          <img src={citc} alt="CITC Logo" className="guest-navbar-logo" />
+          <div className="guest-navbar-text">
+            <span className="guest-navbar-title">Capsort</span>
+            <span className="guest-navbar-subtitle">
+              Capsort Archiving and Sorting System
+            </span>
           </div>
         </div>
 
-        <div className="guest-nav-right">
-          {["Projects", "About Us"].map((tab) => (
-            <div
-              key={tab}
-              className={`nav-link ${activeTab === tab ? "nav-link-active" : ""}`}
-              onClick={() => handleTabClick(tab)}
-            >
-              {tab}
-            </div>
-          ))}
+        <div className="guest-navbar-right">
+          <div
+            className="guest-navbar-link guest-active"
+            onClick={() => navigate("/guest")}
+          >
+            Projects
+          </div>
+          <div
+            className="guest-navbar-link"
+            onClick={() => navigate("/guestabout")}
+          >
+            About Us
+          </div>
         </div>
       </div>
 
-      {/* Page Title */}
-      <div className="page-header">
-        <div className="page-title">
-          {activeTab === "Projects" ? "Capstone Projects" : "About Us"}
-        </div>
-        <div className="page-subtitle">
-          {activeTab === "Projects" ? "0 papers found" : ""}
+      {/* Capstone Papers Text */}
+      <div className="guest-papers-count-wrapper">
+        <div className="guest-papers-count">
+          <h2 className="guest-papers-count-title">Capstone Papers</h2>
+          <p className="guest-papers-count-subtitle">{totalPapers} paper found</p>
         </div>
       </div>
 
-      <div className="content-wrapper">
-        {/* Sidebar */}
-        <div className="sidebar">
-          <div className="sidebar-header">
-            <img src={filterIcon} className="sidebar-icon" />
-            <h2 className="sidebar-title">Filters</h2>
+      {/* MAIN CONTENT */}
+      <div className="guest-main-content-wrapper">
+        {/* FILTER SIDEBAR */}
+        <div className="guest-filter-sidebar">
+          <div className="guest-filter-header">
+            <img src={filterIcon} alt="Filter" className="guest-filter-icon" />
+            <h2 className="guest-filter-title">Filters</h2>
           </div>
 
-          {/* Search */}
-          <label className="label">Search</label>
-          <div className="input-container">
-            <img src={searchIcon} className="input-icon" />
-            <input className="input" placeholder="Title, Author, or keyword" />
-          </div>
-
-          {/* Field Dropdown */}
-          <label className="label">Fields</label>
-          <div className="dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
-            {field}
-            <img src={dropdownIcon} className="dropdown-icon" />
-          </div>
-          {fieldOpen && (
-            <div className="dropdown-list">
-              {["All Fields", "IoT", "Database"].map((option) => (
-                <div
-                  key={option}
-                  className="dropdown-item"
-                  onClick={() => {
-                    setField(option);
-                    setFieldOpen(false);
-                  }}
-                >
-                  {option}
-                </div>
-              ))}
+          <div className="guest-filter-search">
+            <label className="guest-filter-label">Search</label>
+            <div className="guest-filter-input-container">
+              <img src={searchIcon} alt="Search" className="guest-filter-input-icon" />
+              <input
+                type="text"
+                placeholder="Title, Author, or keyword"
+                className="guest-filter-input"
+              />
             </div>
-          )}
+          </div>
 
-          {/* Year Filters */}
-          <label className="label">Year</label>
-          <div className="year-row">
-            {/* From */}
-            <div className="dropdown" onClick={() => setFromOpen(!fromOpen)}>
-              {fromYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
+          <div className="guest-filter-fields">
+            <label className="guest-filter-label">Fields</label>
+            <div className="guest-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
+              {field} <img src={dropdownIcon} alt="Dropdown" className="guest-filter-dropdown-icon" />
             </div>
-            {fromOpen && (
-              <div className="dropdown-list tall">
-                {years.map((year) => (
+            {fieldOpen && (
+              <div className="guest-filter-dropdown-list">
+                {["All Fields", "IoT", "Database"].map(option => (
                   <div
-                    key={year}
-                    className="dropdown-item"
+                    key={option}
+                    className="guest-filter-dropdown-item"
                     onClick={() => {
-                      setFromYear(year.toString());
-                      setFromOpen(false);
+                      setField(option);
+                      setFieldOpen(false);
                     }}
                   >
-                    {year}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* To */}
-            <div className="dropdown" onClick={() => setToOpen(!toOpen)}>
-              {toYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
-            </div>
-            {toOpen && (
-              <div className="dropdown-list tall">
-                {years.map((year) => (
-                  <div
-                    key={year}
-                    className="dropdown-item"
-                    onClick={() => {
-                      setToYear(year.toString());
-                      setToOpen(false);
-                    }}
-                  >
-                    {year}
+                    {option}
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Reset */}
+          <div className="guest-filter-year">
+            <label className="guest-filter-label">Year</label>
+            <div className="guest-filter-year-range">
+              {["from", "to"].map((type, i) => {
+                const open = type === "from" ? fromOpen : toOpen;
+                const setOpen = type === "from" ? setFromOpen : setToOpen;
+                const value = type === "from" ? fromYear : toYear;
+                const setValue = type === "from" ? setFromYear : setToYear;
+
+                return (
+                  <div key={i} className="guest-filter-year-item">
+                    <div className="guest-filter-dropdown" onClick={() => setOpen(!open)}>
+                      {value} <img src={dropdownIcon} alt="Dropdown" className="guest-filter-dropdown-icon" />
+                    </div>
+                    {open && (
+                      <div className="guest-filter-dropdown-list scroll">
+                        {years.map(year => (
+                          <div
+                            key={year}
+                            className="guest-filter-dropdown-item"
+                            onClick={() => {
+                              setValue(year.toString());
+                              setOpen(false);
+                            }}
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <button
-            className="reset-btn"
+            className="guest-filter-reset-btn"
             onClick={() => {
               setField("All Fields");
               setFromYear("From Year");
@@ -159,38 +152,37 @@ export default function FilterSidebarUI() {
           </button>
         </div>
 
-        {/* Cards */}
-        <div className="cards-container">
-          {Array.from({ length: 20 }).map((_, index) => {
-            const field = index % 2 === 0 ? "IoT" : "Database";
-            const bannerColor = field === "IoT" ? "#008000" : "#f1c40f";
+        {/* PAPERS */}
+        <div className="guest-papers-container">
+          {Array.from({ length: totalPapers }).map((_, index) => {
+            const fieldName = index % 2 === 0 ? "IoT" : "Database";
+            const title = `Capstone Title ${index + 1}`;
+            const year = 2025 - index;
+            const author = `Author ${index + 1}`;
 
             return (
-              <div key={index} className="card">
-                {/* Banner */}
-                <div className="card-banner" style={{ backgroundColor: bannerColor }}>
-                  {field}
+              <div key={index} className="guest-paper-card">
+                <div className={`guest-paper-banner ${fieldName.toLowerCase()}`}>{fieldName}</div>
+
+                <div className="guest-paper-title">
+                  <img src={require("../assets/book.png")} alt="Book" className="guest-paper-icon" />
+                  {title}
                 </div>
 
-                <div className="card-title">
-                  <img src={require("../assets/book.png")} className="card-icon" />
-                  Capstone Title {index + 1}
+                <div className="guest-paper-meta-row">
+                  <img src={require("../assets/author.png")} alt="Author" className="guest-paper-meta-icon" />
+                  <span className="guest-paper-meta-text">{author}</span>
                 </div>
 
-                <div className="card-meta">
-                  <img src={require("../assets/author.png")} className="meta-icon" />
-                  Author:
-                </div>
-
-                <div className="card-meta">
-                  <img src={require("../assets/year.png")} className="meta-icon" />
-                  Year:
+                <div className="guest-paper-meta-row">
+                  <img src={require("../assets/year.png")} alt="Year" className="guest-paper-meta-icon" />
+                  <span className="guest-paper-meta-text">{year}</span>
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 }

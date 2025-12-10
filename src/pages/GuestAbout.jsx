@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import citc from "../assets/citc.png";
+import userImg from "../assets/user.png";
+import signoutIcon from "../assets/signout.png";
 import capsort from "../assets/capsort.png";
-import "../styles/GuestAbout.css";
+import "../styles/GuestAbout.css"; // you can rename this to GuestAbout.css later
 
 // ===== TEAM MEMBERS =====
 const teamMembers = [
@@ -36,29 +38,31 @@ const content = {
 
 export default function GuestAbout() {
   const navigate = useNavigate();
-  const currentPath = window.location.pathname;
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <>
-      {/* Navigation Bar */}
-      <div className="nav-container">
-        <div className="nav-left">
-          <img src={citc} alt="CITC Logo" className="nav-logo" />
-          <div className="nav-left-textbox">
-            <span className="nav-left-title">Capsort</span>
-            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
+    <div className="guestabout-wrapper">
+      {/* NAVBAR */}
+      <div className="guest-navbar">
+        <div className="guest-navbar-left">
+          <img src={citc} alt="CITC Logo" className="guest-navbar-logo" />
+          <div className="guest-navbar-text">
+            <span className="guest-navbar-title">Capsort</span>
+            <span className="guest-navbar-subtitle">
+              Capsort Archiving and Sorting System
+            </span>
           </div>
         </div>
 
-        <div className="nav-right">
+        <div className="guest-navbar-right">
           <div
-            className={`nav-link ${currentPath === "/guest" ? "nav-link-active" : ""}`}
+            className="guest-navbar-link"
             onClick={() => navigate("/guest")}
           >
             Projects
           </div>
           <div
-            className={`nav-link ${currentPath === "/guestabout" ? "nav-link-active" : ""}`}
+            className="guest-navbar-link guest-active"
             onClick={() => navigate("/guestabout")}
           >
             About Us
@@ -66,28 +70,28 @@ export default function GuestAbout() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="guest-content">
+      {/* MAIN CONTENT */}
+      <div className="studentabout-content">
         {/* Header */}
-        <div className="guest-header">
+        <div className="studentabout-header">
           <h1>{content.title}</h1>
-          <img src={capsort} alt="CapSort Logo" className="guest-logo" />
+          <img src={capsort} alt="CapSort Logo" className="studentabout-logo" />
         </div>
 
         {/* Mission */}
-        <div className="guest-mission">
+        <div className="studentabout-mission">
           <h2>Our Mission</h2>
           <p>{content.mission}</p>
         </div>
 
         {/* Features */}
-        <div className="guest-features">
+        <div className="studentabout-features">
           {[
             { title: "Easy Search", desc: "Quickly find relevant capstone papers using our advanced filtering system." },
             { title: "Organized", desc: "Projects are categorized by field, year, and author for easy navigation." },
             { title: "Accessible", desc: "Open to students, faculty, and guests to explore innovative projects." },
           ].map((feature, index) => (
-            <div key={index} className="guest-feature-card">
+            <div key={index} className="studentabout-feature-card">
               <h3>{feature.title}</h3>
               <p>{feature.desc}</p>
             </div>
@@ -95,14 +99,14 @@ export default function GuestAbout() {
         </div>
 
         {/* Team */}
-        <div className="guest-team">
+        <div className="studentabout-team">
           <h2>Our Team</h2>
-          <div className="guest-team-members">
+          <div className="studentabout-team-members">
             {teamMembers.map((member, index) => (
-              <div key={index} className="guest-team-member">
-                <div className="avatar">{member.initials}</div>
+              <div key={index} className="studentabout-team-member">
+                <div className="studentabout-avatar">{member.initials}</div>
                 <h3>{member.name}</h3>
-                <p className="role">{member.role}</p>
+                <p className="studentabout-role">{member.role}</p>
                 <p>{member.bio}</p>
               </div>
             ))}
@@ -110,16 +114,16 @@ export default function GuestAbout() {
         </div>
 
         {/* Contact */}
-        <div className="guest-contact">
+        <div className="studentabout-contact">
           <h2>Get in Touch</h2>
           <p>Have questions or suggestions? We'd love to hear from you.</p>
-          <p className="email">
-            <a href={`mailto:${content.contactEmail}`} className="contact-email-link">
+          <p className="studentabout-email">
+            <a href={`mailto:${content.contactEmail}`} className="studentabout-contact-email-link">
               {content.contactEmail}
             </a>
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

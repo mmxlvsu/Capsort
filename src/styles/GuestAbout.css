@@ -1,177 +1,163 @@
 /* ===== NAVBAR ===== */
-.guest-nav {
-  width: 100%;
-  padding: 8px 40px;
+.guestabout-navbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
-  background-color: #ffffff;
-  font-family: "Poppins", sans-serif;
-  z-index: 1000;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
-.guest-nav-left {
+.guestabout-navbar-left {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
-.guest-nav-left-logo {
-  width: 42px;
-  height: auto;
+.guestabout-logo {
+  width: 40px;
+  height: 50px;
+  margin-right: 20px;
 }
 
-.guest-nav-left-text {
+.guestabout-title-wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.guest-nav-left-text span:first-child {
-  font-size: 1rem;
+.guestabout-title {
   font-weight: 700;
+  font-size: 1.2rem;
+  color: #1a1851;
 }
 
-.guest-nav-left-text span:last-child {
+.guestabout-subtitle {
   font-size: 0.8rem;
-  margin-top: -3px;
-  color: black;
+  color: #1a1851;
+  font-weight: 400;
 }
 
-.guest-nav-right {
+.guestabout-navbar-right {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 }
 
-/* ===== NAVBAR LINKS ===== */
-.guest-nav-right {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  position: relative;
-}
-
-.guest-nav-right div {
+.guestabout-link {
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 400;
-  position: relative;
-  padding-bottom: 2px;
-  transition: color 0.2s;
+  color: #333;
 }
 
-.guest-nav-right div:hover {
+.guestabout-active {
   color: #1a1851;
   font-weight: 700;
+  border-bottom: 2px solid #1a1851;
 }
-
 
 /* ===== MAIN CONTENT ===== */
 /* Header */
-.guest-header {
+.guestabout-header {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 15px;
 }
 
-.guest-header h1 {
+.guestabout-header h1 {
   font-size: 22px;
   color: #1a1851;
   margin-bottom: 15px;
 }
 
 /* Logo */
-.guest-logo {
+.guestabout-logo {
   display: block;
   margin: 0 auto 30px;
-  width: 500px;
+  width: 450px;
   height: auto;
 }
 
 /* Mission Section */
-.guest-mission {
+.guestabout-mission {
   background-color: #1a1851;
   padding: 40px;
   margin-bottom: 40px;
 }
 
-.guest-mission h2 {
+.guestabout-mission h2 {
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   color: white;
-  margin-bottom: 12px;
-  font-weight: bold;
+  margin-bottom: 22px;
 }
 
-.guest-mission p {
+.guestabout-mission p {
   font-size: 22px;
   color: white;
   line-height: 1.6;
 }
 
 /* Features Section */
-.guest-features {
+.guestabout-features {
   display: flex;
   gap: 30px;
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
-.guest-feature-card {
-  background-color: white;
+.guestabout-feature-card {
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid black;
   flex: 1 1 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
 }
 
-.guest-feature-card h3 {
+.guestabout-feature-card h3 {
   font-size: 22px;
   font-weight: 600;
   color: #1a1851;
   margin-bottom: 10px;
 }
 
-.guest-feature-card p {
+.guestabout-feature-card p {
   font-size: 18px;
   color: #1e1e1e;
 }
 
 /* Team Section */
-.guest-team {
+.guestabout-team {
   margin-bottom: 40px;
   text-align: center;
 }
 
-.guest-team h2 {
+.guestabout-team h2 {
   font-size: 24px;
   color: #1a1851;
   margin-bottom: 40px;
   font-weight: 600;
 }
 
-.guest-team-members {
+.guestabout-team-members {
   display: flex;
   gap: 60px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.guest-team-member {
-  background-color: white;
+.guestabout-team-member {
   padding: 25px;
   border-radius: 10px;
   width: 250px;
   text-align: center;
-  border: 1px solid #1a1851;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
 }
 
-.guest-team-member .avatar {
+.guestabout-team-member .studentabout-avatar {
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background-color: #FFD338;
+  background-color: #f0d068;
   color: white;
   display: flex;
   align-items: center;
@@ -179,42 +165,47 @@
   margin: 0 auto 15px auto;
 }
 
-.guest-team-member h3 {
+.guestabout-team-member h3 {
   font-size: 20px;
   color: #1a1851;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
-.guest-team-member .role {
+.guestabout-team-member .studentabout-role {
   font-size: 16px;
-  color: #FFD338;
-  margin-bottom: 20px;
+  color: #000000;
+  margin-bottom: 32px;
 }
 
-.guest-team-member p {
+.guestabout-team-member p {
   font-size: 14px;
-  color: #1e1e1e;
+  color: #000000;
 }
 
 /* Contact Section */
-.guest-contact {
+.guestabout-contact {
   background-color: #1a1851;
   color: white;
   padding: 20px;
   text-align: center;
 }
 
-.guest-contact h2 {
+.guestabout-contact h2 {
   font-size: 18px;
   margin-bottom: 15px;
 }
 
-.guest-contact p {
+.guestabout-contact p {
   font-size: 18px;
   margin-bottom: 15px;
 }
 
-.guest-contact .email {
+.guestabout-contact .studentabout-email {
   font-size: 20px;
   font-weight: 600;
+}
+
+.guestabout-contact .studentabout-email:hover {
+  text-decoration: underline;
 }

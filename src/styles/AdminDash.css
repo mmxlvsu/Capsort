@@ -367,3 +367,80 @@
 .admndash-add-paper-modal-close:hover {
   color: #000;
 }
+/* Loading, Error, and No Projects States */
+.admndash-loading,
+.admndash-error,
+.admndash-no-projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  width: 100%;
+  min-height: 300px;
+}
+
+.admndash-error {
+  color: #d32f2f;
+}
+
+.admndash-retry-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.admndash-retry-btn:hover {
+  background-color: #2a2861;
+}
+
+.admndash-no-projects {
+  color: #888;
+}
+
+/* Additional field banner colors for new fields */
+.admndash-paper-banner.webdevelopment {
+  background-color: #4CAF50;
+}
+
+.admndash-paper-banner.mobiledevelopment {
+  background-color: #FF9800;
+}
+
+.admndash-paper-banner.aiml {
+  background-color: #9C27B0;
+}
+
+.admndash-paper-banner.cybersecurity {
+  background-color: #F44336;
+}
+
+/* Close button for modals */
+.admndash-add-paper-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admndash-add-paper-modal-close:hover {
+  color: #333;
+}

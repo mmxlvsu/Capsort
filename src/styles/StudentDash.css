@@ -381,3 +381,69 @@
   font-size: 1.1rem;
   color: #555;
 }
+/* Loading, Error, and No Projects States */
+.studentdash-loading,
+.studentdash-error,
+.studentdash-no-projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  width: 100%;
+  min-height: 300px;
+  grid-column: 1 / -1;
+}
+
+.studentdash-error {
+  color: #d32f2f;
+}
+
+.studentdash-retry-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.studentdash-retry-btn:hover {
+  background-color: #2a2861;
+}
+
+.studentdash-no-projects {
+  color: #888;
+}
+
+/* Additional field banner colors for new fields */
+.studentdash-paper-banner.webdevelopment {
+  background-color: #4CAF50;
+}
+
+.studentdash-paper-banner.mobiledevelopment {
+  background-color: #FF9800;
+}
+
+.studentdash-paper-banner.aiml {
+  background-color: #9C27B0;
+}
+
+.studentdash-paper-banner.cybersecurity {
+  background-color: #F44336;
+}
+
+/* Save button states */
+.studentdash-paper-save-btn.saved {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.studentdash-paper-save-btn.saved:hover {
+  background-color: #45a049;
+}

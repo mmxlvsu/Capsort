@@ -293,3 +293,59 @@
   font-size: 1.1rem;
   color: #555;
 }
+/* Loading, Error, and No Projects States */
+.saved-loading,
+.saved-error,
+.saved-no-projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  width: 100%;
+  min-height: 300px;
+  grid-column: 1 / -1;
+}
+
+.saved-error {
+  color: #d32f2f;
+}
+
+.saved-retry-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.saved-retry-btn:hover {
+  background-color: #2a2861;
+}
+
+.saved-no-projects {
+  color: #888;
+}
+
+/* Additional field banner colors for new fields */
+.saved-paper-banner.webdevelopment {
+  background-color: #4CAF50;
+}
+
+.saved-paper-banner.mobiledevelopment {
+  background-color: #FF9800;
+}
+
+.saved-paper-banner.aiml {
+  background-color: #9C27B0;
+}
+
+.saved-paper-banner.cybersecurity {
+  background-color: #F44336;
+}

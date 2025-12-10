@@ -224,43 +224,54 @@ export default function NavigationBar() {
         </div>
       </div>
       {popupData?.isEdit && (
-        <div className="admndash-add-paper-modal-overlay">
-          <div className="admndash-add-paper-modal">
-            <h2 className="admndash-add-paper-modal-title">Edit Capstone Paper</h2>
-            <p className="admndash-add-paper-modal-subtitle">Update the details of the capstone paper.</p>
+  <div className="admndash-add-paper-modal-overlay">
+    <div className="admndash-add-paper-modal">
+      <button
+        className="admndash-add-paper-modal-close"
+        onClick={() => setPopupData(null)}
+      >
+        &times;
+      </button>
 
-            <label>Title</label>
-            <input type="text" placeholder="Enter paper title" className="admndash-add-paper-modal-input" />
-            <label>Author</label>
-            <input type="text" placeholder="Enter author name" className="admndash-add-paper-modal-input" />
-            <label>Year</label>
-            <input type="text" placeholder="2025" inputMode="numeric" className="admndash-add-paper-modal-input" />
-            <label>Field</label>
-            <select className="admndash-add-paper-modal-input">
-              <option value="">Select Field</option>
-              <option value="IoT">IoT</option>
-              <option value="Database">Database</option>
-            </select>
+      <h2 className="admndash-add-paper-modal-title">Edit Capstone Paper</h2>
+      <p className="admndash-add-paper-modal-subtitle">
+        Update the details of the capstone paper.
+      </p>
 
-            <div className="admndash-add-paper-modal-buttons">
-              <button className="admndash-add-paper-modal-trash" onClick={() => setShowTrashConfirm(true)}>Move to Trash</button>
-              <button className="admndash-add-paper-modal-submit">Save Changes</button>
+      <label>Title</label>
+      <input type="text" placeholder="Enter paper title" className="admndash-add-paper-modal-input" />
+      <label>Author</label>
+      <input type="text" placeholder="Enter author name" className="admndash-add-paper-modal-input" />
+      <label>Year</label>
+      <input type="text" placeholder="2025" inputMode="numeric" className="admndash-add-paper-modal-input" />
+      <label>Field</label>
+      <select className="admndash-add-paper-modal-input">
+        <option value="">Select Field</option>
+        <option value="IoT">IoT</option>
+        <option value="Database">Database</option>
+      </select>
+
+      <div className="admndash-add-paper-modal-buttons">
+        <button className="admndash-add-paper-modal-trash" onClick={() => setShowTrashConfirm(true)}>
+          Move to Trash
+        </button>
+        <button className="admndash-add-paper-modal-submit">Save Changes</button>
+      </div>
+
+      {showTrashConfirm && (
+        <div className="admndash-trash-confirm-overlay">
+          <div className="admndash-trash-confirm-modal">
+            <p>Are you sure you want to move this paper to trash?</p>
+            <div className="admndash-trash-confirm-buttons">
+              <button className="admndash-trash-cancel" onClick={() => setShowTrashConfirm(false)}>Cancel</button>
+              <button className="admndash-trash-confirm" onClick={() => { setPopupData(null); setShowTrashConfirm(false); }}>Yes, Move to Trash</button>
             </div>
-
-            {showTrashConfirm && (
-              <div className="admndash-trash-confirm-overlay">
-                <div className="admndash-trash-confirm-modal">
-                  <p>Are you sure you want to move this paper to trash?</p>
-                  <div className="admndash-trash-confirm-buttons">
-                    <button className="admndash-trash-cancel" onClick={() => setShowTrashConfirm(false)}>Cancel</button>
-                    <button className="admndash-trash-confirm" onClick={() => { setPopupData(null); setShowTrashConfirm(false); }}>Yes, Move to Trash</button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
+    </div>
+  </div>
+)}
 
       {popupData?.isNew && (
         <div className="admndash-add-paper-modal-overlay">

@@ -113,8 +113,14 @@ export default function Saved() {
     <>
       <div className="saved-navbar">
         <div className="saved-navbar-left">
-          <img src={citc} alt="CITC Logo" className="saved-navbar-logo" />
-          <div className="saved-navbar-text">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="saved-navbar-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="saved-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="saved-navbar-title">Capsort</span>
             <span className="saved-navbar-subtitle">Capsort Archiving and Sorting System</span>
           </div>

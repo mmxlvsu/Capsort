@@ -150,8 +150,14 @@ export default function StudentDash() {
       {/* NAVBAR */}
       <div className="studentdash-navbar">
         <div className="studentdash-navbar-left">
-          <img src={citc} alt="CITC Logo" className="studentdash-navbar-logo" />
-          <div className="studentdash-navbar-text">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="studentdash-navbar-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="studentdash-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="studentdash-navbar-title">Capsort</span>
             <span className="studentdash-navbar-subtitle">
               Capsort Archiving and Sorting System

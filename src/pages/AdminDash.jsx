@@ -219,8 +219,14 @@ export default function AdminDash() {
       {/* NAVBAR */}
       <div className="admndash-navbar">
         <div className="admndash-navbar-left">
-          <img src={citc} alt="CITC Logo" className="admndash-navbar-logo" />
-          <div className="admndash-navbar-text">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="admndash-navbar-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="admndash-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="admndash-navbar-title">Capsort</span>
             <span className="admndash-navbar-subtitle">
               Capsort Archiving and Sorting System

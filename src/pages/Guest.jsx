@@ -82,8 +82,14 @@ export default function Guest() {
       {/* NAVBAR */}
       <div className="guest-navbar">
         <div className="guest-navbar-left">
-          <img src={citc} alt="CITC Logo" className="guest-navbar-logo" />
-          <div className="guest-navbar-text">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="guest-navbar-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="guest-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="guest-navbar-title">Capsort</span>
             <span className="guest-navbar-subtitle">
               Capsort Archiving and Sorting System

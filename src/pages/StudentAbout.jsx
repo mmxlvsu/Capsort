@@ -45,8 +45,14 @@ export default function StudentAbout() {
       {/* NAVBAR */}
       <div className="about-navbar">
         <div className="about-navbar-left">
-          <img src={citc} alt="CITC Logo" className="about-logo" />
-          <div className="about-title-wrapper">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="about-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="about-title-wrapper" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="about-title">Capsort</span>
             <span className="about-subtitle">Capsort Archiving and Sorting System</span>
           </div>

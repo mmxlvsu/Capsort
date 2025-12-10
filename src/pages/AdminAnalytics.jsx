@@ -126,8 +126,14 @@ export default function AdminAnalytics() {
         {/* Navbar */}
         <div className="aa-navbar">
           <div className="aa-navbar-left">
-            <img src={citc} alt="CITC Logo" className="aa-navbar-logo" />
-            <div className="aa-navbar-text">
+            <img 
+              src={citc} 
+              alt="CITC Logo" 
+              className="aa-navbar-logo" 
+              onClick={() => navigate("/splash")}
+              style={{ cursor: 'pointer' }}
+            />
+            <div className="aa-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
               <span className="aa-navbar-title">Capsort</span>
               <span className="aa-navbar-subtitle">
                 Capsort Archiving and Sorting System
@@ -161,8 +167,14 @@ export default function AdminAnalytics() {
         {/* Navbar */}
         <div className="aa-navbar">
           <div className="aa-navbar-left">
-            <img src={citc} alt="CITC Logo" className="aa-navbar-logo" />
-            <div className="aa-navbar-text">
+            <img 
+              src={citc} 
+              alt="CITC Logo" 
+              className="aa-navbar-logo" 
+              onClick={() => navigate("/splash")}
+              style={{ cursor: 'pointer' }}
+            />
+            <div className="aa-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
               <span className="aa-navbar-title">Capsort</span>
               <span className="aa-navbar-subtitle">
                 Capsort Archiving and Sorting System
@@ -198,8 +210,14 @@ export default function AdminAnalytics() {
       {/* Navbar */}
       <div className="aa-navbar">
         <div className="aa-navbar-left">
-          <img src={citc} alt="CITC Logo" className="aa-navbar-logo" />
-          <div className="aa-navbar-text">
+          <img 
+            src={citc} 
+            alt="CITC Logo" 
+            className="aa-navbar-logo" 
+            onClick={() => navigate("/splash")}
+            style={{ cursor: 'pointer' }}
+          />
+          <div className="aa-navbar-text" onClick={() => navigate("/splash")} style={{ cursor: 'pointer' }}>
             <span className="aa-navbar-title">Capsort</span>
             <span className="aa-navbar-subtitle">
               Capsort Archiving and Sorting System

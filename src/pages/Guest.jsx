@@ -1,26 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import citc from "../assets/citc.png";
-import userImg from "../assets/user.png";
 import filterIcon from "../assets/filter.png";
 import searchIcon from "../assets/search.png";
 import dropdownIcon from "../assets/dropdown.png";
+import { projectService } from "../services/projectService";
 
 import "../styles/Guest.css";
 
-export default function NavigationBar() {
+export default function Guest() {
   const navigate = useNavigate();
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
 
+  // Filter states
   const [field, setField] = useState("All Fields");
   const [fromYear, setFromYear] = useState("From Year");
   const [toYear, setToYear] = useState("To Year");
+  const [searchQuery, setSearchQuery] = useState("");
   const [fieldOpen, setFieldOpen] = useState(false);
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
-  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
-  const totalPapers = 20;
+  // Data states
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Available fields (only Database and IoT)
+  const availableFields = ["All Fields", "IoT", "Database"];
+
+  // Load projects from backend
+  const loadProjects = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const filters = {
+        field: field !== "All Fields" ? field : null,
+        yearFrom: fromYear !== "From Year" ? fromYear : null,
+        yearTo: toYear !== "To Year" ? toYear : null,
+        search: searchQuery || null,
+        limit: 100
+      };
+
+      const result = await projectService.getAllProjects(filters);
+      
+      if (result.error) {
+        setError(result.message || 'Failed to load projects');
+        setProjects([]);
+      } else {
+        setProjects(result.data.projects || []);
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection.');
+      setProjects([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [field, fromYear, toYear, searchQuery]);
+
+  // Load projects on component mount and when filters change
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setField("All Fields");
+    setFromYear("From Year");
+    setToYear("To Year");
+    setSearchQuery("");
+  };
 
   return (
     <>
@@ -56,7 +111,9 @@ export default function NavigationBar() {
       <div className="guest-papers-count-wrapper">
         <div className="guest-papers-count">
           <h2 className="guest-papers-count-title">Capstone Papers</h2>
-          <p className="guest-papers-count-subtitle">{totalPapers} paper found</p>
+          <p className="guest-papers-count-subtitle">
+            {loading ? 'Loading...' : `${projects.length} paper${projects.length !== 1 ? 's' : ''} found`}
+          </p>
         </div>
       </div>
 
@@ -77,6 +134,8 @@ export default function NavigationBar() {
                 type="text"
                 placeholder="Title, Author, or keyword"
                 className="guest-filter-input"
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
@@ -88,7 +147,7 @@ export default function NavigationBar() {
             </div>
             {fieldOpen && (
               <div className="guest-filter-dropdown-list">
-                {["All Fields", "IoT", "Database"].map(option => (
+                {availableFields.map(option => (
                   <div
                     key={option}
                     className="guest-filter-dropdown-item"
@@ -142,11 +201,7 @@ export default function NavigationBar() {
 
           <button
             className="guest-filter-reset-btn"
-            onClick={() => {
-              setField("All Fields");
-              setFromYear("From Year");
-              setToYear("To Year");
-            }}
+            onClick={resetFilters}
           >
             Reset Filter
           </button>
@@ -154,33 +209,52 @@ export default function NavigationBar() {
 
         {/* PAPERS */}
         <div className="guest-papers-container">
-          {Array.from({ length: totalPapers }).map((_, index) => {
-            const fieldName = index % 2 === 0 ? "IoT" : "Database";
-            const title = `Capstone Title ${index + 1}`;
-            const year = 2025 - index;
-            const author = `Author ${index + 1}`;
-
-            return (
-              <div key={index} className="guest-paper-card">
-                <div className={`guest-paper-banner ${fieldName.toLowerCase()}`}>{fieldName}</div>
+          {loading ? (
+            <div className="guest-loading">
+              <p>Loading projects...</p>
+            </div>
+          ) : error ? (
+            <div className="guest-error">
+              <p>Error: {error}</p>
+              <button onClick={loadProjects} className="guest-retry-btn">
+                Retry
+              </button>
+            </div>
+          ) : projects.length === 0 ? (
+            <div className="guest-no-projects">
+              <p>No projects found. Try adjusting your filters.</p>
+            </div>
+          ) : (
+            projects.map((project) => (
+              <div key={project.id} className="guest-paper-card">
+                <div className={`guest-paper-banner ${project.field.toLowerCase().replace(/[^a-z0-9]/g, '')}`}>
+                  {project.field}
+                </div>
 
                 <div className="guest-paper-title">
                   <img src={require("../assets/book.png")} alt="Book" className="guest-paper-icon" />
-                  {title}
+                  {project.title}
                 </div>
 
                 <div className="guest-paper-meta-row">
                   <img src={require("../assets/author.png")} alt="Author" className="guest-paper-meta-icon" />
-                  <span className="guest-paper-meta-text">{author}</span>
+                  <span className="guest-paper-meta-text">{project.author}</span>
                 </div>
 
                 <div className="guest-paper-meta-row">
                   <img src={require("../assets/year.png")} alt="Year" className="guest-paper-meta-icon" />
-                  <span className="guest-paper-meta-text">{year}</span>
+                  <span className="guest-paper-meta-text">{project.year}</span>
+                </div>
+
+                <div className="guest-paper-meta-row">
+                  <img src={require("../assets/user.png")} alt="Uploader" className="guest-paper-meta-icon" />
+                  <span className="guest-paper-meta-text">
+                    {project.uploader ? project.uploader.fullName : 'Unknown'}
+                  </span>
                 </div>
               </div>
-            );
-          })}
+            ))
+          )}
         </div>
       </div>
     </>

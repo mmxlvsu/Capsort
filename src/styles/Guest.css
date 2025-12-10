@@ -185,4 +185,43 @@
   margin-left: 45px;
 }
 .guest-paper-meta-icon { width: 24px; height: 24px; flex-shrink: 0; }
-.guest-paper-meta-text { font-size: 1rem; color: #000; }
+.guest-paper-meta-text { font-size: 1rem; color: #000; }/*
+ Loading, Error, and No Projects States */
+.guest-loading,
+.guest-error,
+.guest-no-projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  width: 100%;
+  min-height: 300px;
+  grid-column: 1 / -1;
+}
+
+.guest-error {
+  color: #d32f2f;
+}
+
+.guest-retry-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.guest-retry-btn:hover {
+  background-color: #2a2861;
+}
+
+.guest-no-projects {
+  color: #888;
+}

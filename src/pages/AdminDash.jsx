@@ -95,6 +95,19 @@ export default function AdminDash() {
         return;
       }
 
+      const currentYear = new Date().getFullYear();
+      const year = parseInt(formData.year);
+      
+      if (year > currentYear) {
+        alert(`Year cannot exceed the current year (${currentYear})`);
+        return;
+      }
+
+      if (year < 1900) {
+        alert('Year must be 1900 or later');
+        return;
+      }
+
       const result = await projectService.createProject(formData);
       
       if (result.error) {
@@ -115,6 +128,19 @@ export default function AdminDash() {
     try {
       if (!formData.title || !formData.author || !formData.year || !formData.field) {
         alert('Please fill in all fields');
+        return;
+      }
+
+      const currentYear = new Date().getFullYear();
+      const year = parseInt(formData.year);
+      
+      if (year > currentYear) {
+        alert(`Year cannot exceed the current year (${currentYear})`);
+        return;
+      }
+
+      if (year < 1900) {
+        alert('Year must be 1900 or later');
         return;
       }
 
@@ -438,12 +464,12 @@ export default function AdminDash() {
             <label>Year</label>
             <input 
               type="number" 
-              placeholder="2025" 
+              placeholder={new Date().getFullYear().toString()} 
               className="admndash-add-paper-modal-input"
               value={formData.year}
               onChange={(e) => handleFormChange('year', e.target.value)}
               min="1900"
-              max="2100"
+              max={new Date().getFullYear()}
             />
             
             <label>Field</label>
@@ -534,12 +560,12 @@ export default function AdminDash() {
             <label>Year</label>
             <input 
               type="number" 
-              placeholder="2025" 
+              placeholder={new Date().getFullYear().toString()} 
               className="admndash-add-paper-modal-input"
               value={formData.year}
               onChange={(e) => handleFormChange('year', e.target.value)}
               min="1900"
-              max="2100"
+              max={new Date().getFullYear()}
             />
             
             <label>Field</label>

@@ -360,3 +360,59 @@
   font-weight: 400;
   color: #555;
 }
+/* Loading, Error, and No Data States */
+.aa-loading,
+.aa-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 400px;
+}
+
+.aa-loading {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.aa-error {
+  color: #d32f2f;
+  font-size: 1.1rem;
+}
+
+.aa-retry-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.aa-retry-btn:hover {
+  background-color: #2a2861;
+}
+
+.aa-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #888;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Dynamic legend colors */
+.aa-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 8px;
+}

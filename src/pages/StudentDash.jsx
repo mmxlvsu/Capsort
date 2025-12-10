@@ -1,152 +1,82 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { projectsService } from "../services/projects";
-import { savedProjectsService } from "../services/savedProjects";
 import citc from "../assets/citc.png";
-import userImg from "../assets/user.png"; 
+import userImg from "../assets/user.png";
 import filterIcon from "../assets/filter.png";
 import searchIcon from "../assets/search.png";
 import dropdownIcon from "../assets/dropdown.png";
+
 import "../styles/StudentDash.css";
 
-export default function StudentDash() {
+export default function NavigationBar() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
 
-  // Filter states
   const [field, setField] = useState("All Fields");
   const [fromYear, setFromYear] = useState("From Year");
   const [toYear, setToYear] = useState("To Year");
-  const [searchQuery, setSearchQuery] = useState("");
   const [fieldOpen, setFieldOpen] = useState(false);
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
-
-  // Data states
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [savedProjectIds, setSavedProjectIds] = useState(new Set());
-
-  // Popup states
-  const [popupData, setPopupData] = useState(null);
-  const [showSavedPopup, setShowSavedPopup] = useState(false);
-  const [savingProject, setSavingProject] = useState(false);
-
-  // User dropdown
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [popupData, setPopupData] = useState(null);
 
-  // Available fields
-  const availableFields = ["All Fields", "IoT", "Database", "Web Development", "Mobile Development", "AI/ML"];
+  const closeModal = () => setPopupData(null);
 
-  useEffect(() => {
-    fetchProjects();
-    fetchSavedProjects();
-  }, [field, fromYear, toYear, searchQuery]);
-
-  const fetchProjects = async () => {
-    setLoading(true);
-    setError("");
-
-    const filters = {
-      search: searchQuery || undefined,
-      field: field !== "All Fields" ? field : undefined,
-      yearFrom: fromYear !== "From Year" ? fromYear : undefined,
-      yearTo: toYear !== "To Year" ? toYear : undefined,
-      limit: 100
-    };
-
-    const result = await projectsService.getProjects(filters);
-
-    if (result.success) {
-      setProjects(result.projects);
-    } else {
-      setError(result.error || "Failed to load projects");
-      setProjects([]);
-    }
-
-    setLoading(false);
-  };
-
-  const fetchSavedProjects = async () => {
-    const result = await savedProjectsService.getSavedProjects();
-    if (result.success) {
-      const savedIds = new Set(result.savedProjects.map(sp => sp.projectId));
-      setSavedProjectIds(savedIds);
-    }
-  };
-
-  const handleSaveProject = async (projectId) => {
-    if (savedProjectIds.has(projectId)) {
-      setShowSavedPopup(true);
-      setTimeout(() => setShowSavedPopup(false), 2000);
-      return;
-    }
-
-    setSavingProject(true);
-    const result = await savedProjectsService.saveProject(projectId);
-
-    if (result.success) {
-      setSavedProjectIds(prev => new Set([...prev, projectId]));
-      setShowSavedPopup(true);
-      setTimeout(() => setShowSavedPopup(false), 2000);
-    } else {
-      alert(result.error || "Failed to save project");
-    }
-
-    setSavingProject(false);
-  };
-
-  const handleResetFilters = () => {
-    setField("All Fields");
-    setFromYear("From Year");
-    setToYear("To Year");
-    setSearchQuery("");
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate("/signstudent");
-  };
-
-  const getFieldColor = (fieldName) => {
-    const colors = {
-      "IoT": "#008000",
-      "Database": "#f1c40f",
-      "Web Development": "#3498db",
-      "Mobile Development": "#9b59b6",
-      "AI/ML": "#e74c3c"
-    };
-    return colors[fieldName] || "#95a5a6";
-  };
+  const totalPapers = 20;
 
   return (
-    <div className="page-container">
-      {/* Navbar */}
-      <div className="nav-container">
-        <div className="nav-left">
-          <img src={citc} alt="CITC Logo" className="nav-logo" />
-          <div className="nav-left-textbox">
-            <span className="nav-left-title">Capsort</span>
-            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
+    <>
+      {/* NAVBAR */}
+      <div className="studentdash-navbar">
+        <div className="studentdash-navbar-left">
+          <img src={citc} alt="CITC Logo" className="studentdash-navbar-logo" />
+          <div className="studentdash-navbar-text">
+            <span className="studentdash-navbar-title">Capsort</span>
+            <span className="studentdash-navbar-subtitle">
+              Capsort Archiving and Sorting System
+            </span>
           </div>
         </div>
 
-        <div className="nav-right">
-          <div className={`nav-link nav-link-active`} onClick={() => navigate("/guest")}>Projects</div>
-          <div className="nav-link" onClick={() => navigate("/saved")}>Saved Projects</div>
-          <div className="nav-link" onClick={() => navigate("/studentabout")}>About Us</div>
-
-          <div className="nav-user-wrapper">
-            <div className="nav-user-icon" onClick={() => setShowUserDropdown(!showUserDropdown)}>
-              <img src={userImg} alt="User" className="nav-user-img" />
+        <div className="studentdash-navbar-right">
+          <div
+            className="studentdash-navbar-link studentdash-active"
+            onClick={() => navigate("/studentdash")}
+          >
+            Projects
+          </div>
+          <div
+            className="studentdash-navbar-link"
+            onClick={() => navigate("/Saved")}
+          >
+            Saved Projects
+          </div>
+          <div
+            className="studentdash-navbar-link"
+            onClick={() => navigate("/StudentAbout")}
+          >
+            About Us
+          </div>
+          <div className="studentdash-user-icon-container">
+            <div
+              className="studentdash-user-icon"
+              onClick={() => setShowUserDropdown(!showUserDropdown)}
+            >
+              <img src={userImg} alt="User" className="studentdash-user-img" />
             </div>
+
             {showUserDropdown && (
-              <div className="nav-user-dropdown">
-                <div className="nav-user-dropdown-item" onClick={handleLogout}>
-                  <img src={require("../assets/signout.png")} alt="Sign Out" className="nav-user-dropdown-icon" />
+              <div className="studentdash-user-dropdown">
+                <div
+                  className="studentdash-user-dropdown-item"
+                  onClick={() => navigate("/splash")}
+                >
+                  <img
+                    src={require("../assets/signout.png")}
+                    alt="Sign Out"
+                    className="studentdash-user-dropdown-icon"
+                  />
                   <span>Sign Out</span>
                 </div>
               </div>
@@ -155,118 +85,193 @@ export default function StudentDash() {
         </div>
       </div>
 
-      {/* Page Title */}
-      <div className="page-header">
-        <div className="page-title">Capstone Projects</div>
-        <div className="page-subtitle">{loading ? "Loading..." : `${projects.length} ${projects.length === 1 ? 'paper' : 'papers'} found`}</div>
+      {/* Capstone Papers Text */}
+      <div className="studentdash-papers-count-wrapper">
+        <div className="studentdash-papers-count">
+          <h2 className="studentdash-papers-count-title">Capstone Papers</h2>
+          <p className="studentdash-papers-count-subtitle">{totalPapers} paper found</p>
+        </div>
       </div>
 
-      {/* Content Wrapper: Sidebar + Cards */}
-      <div className="content-wrapper">
-        {/* Sidebar */}
-        <div className="sidebar">
-          <div className="sidebar-header">
-            <img src={filterIcon} className="sidebar-icon" />
-            <h2 className="sidebar-title">Filters</h2>
+      {/* MAIN CONTENT */}
+      <div className="studentdash-main-content-wrapper">
+        {/* FILTER SIDEBAR */}
+        <div className="studentdash-filter-sidebar">
+          <div className="studentdash-filter-header">
+            <img src={filterIcon} alt="Filter" className="studentdash-filter-icon" />
+            <h2 className="studentdash-filter-title">Filters</h2>
           </div>
 
-          {/* Search */}
-          <label className="label">Search</label>
-          <div className="input-container">
-            <img src={searchIcon} className="input-icon" />
-            <input
-              className="input"
-              placeholder="Title, Author, or keyword"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <div className="studentdash-filter-search">
+            <label className="studentdash-filter-label">Search</label>
+            <div className="studentdash-filter-input-container">
+              <img src={searchIcon} alt="Search" className="studentdash-filter-input-icon" />
+              <input
+                type="text"
+                placeholder="Title, Author, or keyword"
+                className="studentdash-filter-input"
+              />
+            </div>
           </div>
 
-          {/* Field Dropdown */}
-          <label className="label">Fields</label>
-          <div className="dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
-            {field}
-            <img src={dropdownIcon} className="dropdown-icon" />
-          </div>
-          {fieldOpen && (
-            <div className="dropdown-list">
-              {availableFields.map(option => (
-                <div key={option} className="dropdown-item" onClick={() => { setField(option); setFieldOpen(false); }}>
-                  {option}
-                </div>
-              ))}
+          <div className="studentdash-filter-fields">
+            <label className="studentdash-filter-label">Fields</label>
+            <div className="studentdash-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
+              {field} <img src={dropdownIcon} alt="Dropdown" className="studentdash-filter-dropdown-icon" />
             </div>
-          )}
-
-          {/* Year Filters */}
-          <label className="label">Year</label>
-          <div className="year-row">
-            <div className="dropdown" onClick={() => setFromOpen(!fromOpen)}>
-              {fromYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
-            </div>
-            {fromOpen && (
-              <div className="dropdown-list tall">
-                {years.map(year => (
-                  <div key={year} className="dropdown-item" onClick={() => { setFromYear(year.toString()); setFromOpen(false); }}>
-                    {year}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="dropdown" onClick={() => setToOpen(!toOpen)}>
-              {toYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
-            </div>
-            {toOpen && (
-              <div className="dropdown-list tall">
-                {years.map(year => (
-                  <div key={year} className="dropdown-item" onClick={() => { setToYear(year.toString()); setToOpen(false); }}>
-                    {year}
+            {fieldOpen && (
+              <div className="studentdash-filter-dropdown-list">
+                {["All Fields", "IoT", "Database"].map(option => (
+                  <div
+                    key={option}
+                    className="studentdash-filter-dropdown-item"
+                    onClick={() => {
+                      setField(option);
+                      setFieldOpen(false);
+                    }}
+                  >
+                    {option}
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          <button className="reset-btn" onClick={handleResetFilters}>Reset Filter</button>
+          <div className="studentdash-filter-year">
+            <label className="studentdash-filter-label">Year</label>
+            <div className="studentdash-filter-year-range">
+              {["from", "to"].map((type, i) => {
+                const open = type === "from" ? fromOpen : toOpen;
+                const setOpen = type === "from" ? setFromOpen : setToOpen;
+                const value = type === "from" ? fromYear : toYear;
+                const setValue = type === "from" ? setFromYear : setToYear;
+
+                return (
+                  <div key={i} className="studentdash-filter-year-item">
+                    <div className="studentdash-filter-dropdown" onClick={() => setOpen(!open)}>
+                      {value} <img src={dropdownIcon} alt="Dropdown" className="studentdash-filter-dropdown-icon" />
+                    </div>
+                    {open && (
+                      <div className="studentdash-filter-dropdown-list scroll">
+                        {years.map(year => (
+                          <div
+                            key={year}
+                            className="studentdash-filter-dropdown-item"
+                            onClick={() => {
+                              setValue(year.toString());
+                              setOpen(false);
+                            }}
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            className="studentdash-filter-reset-btn"
+            onClick={() => {
+              setField("All Fields");
+              setFromYear("From Year");
+              setToYear("To Year");
+            }}
+          >
+            Reset Filter
+          </button>
         </div>
 
-        {/* Cards */}
-        <div className="cards-container">
-          {loading ? (
-            <div style={{ padding: '20px' }}>Loading projects...</div>
-          ) : error ? (
-            <div style={{ padding: '20px', color: 'red' }}>{error}</div>
-          ) : projects.length === 0 ? (
-            <div style={{ padding: '20px' }}>No projects found. Try adjusting your filters.</div>
-          ) : (
-            projects.map((project, index) => (
-              <div key={project.id} className="card">
-                <div className="card-banner" style={{ backgroundColor: getFieldColor(project.field) }}>
-                  {project.field}
+        {/* PAPERS */}
+        <div className="studentdash-papers-container">
+          {Array.from({ length: totalPapers }).map((_, index) => {
+            const fieldName = index % 2 === 0 ? "IoT" : "Database";
+            const title = `Capstone Title ${index + 1}`;
+            const year = 2025 - index;
+            const author = `Author ${index + 1}`;
+
+            return (
+              <div key={index} className="studentdash-paper-card">
+                <div className={`studentdash-paper-banner ${fieldName.toLowerCase()}`}>{fieldName}</div>
+
+                <div className="studentdash-paper-title">
+                  <img src={require("../assets/book.png")} alt="Book" className="studentdash-paper-icon" />
+                  {title}
                 </div>
-                <div className="card-title">
-                  <img src={require("../assets/book.png")} className="card-icon" />
-                  {project.title}
+
+                <div className="studentdash-paper-meta-row">
+                  <img src={require("../assets/author.png")} alt="Author" className="studentdash-paper-meta-icon" />
+                  <span className="studentdash-paper-meta-text">{author}</span>
                 </div>
-                <div className="card-meta">
-                  <img src={require("../assets/author.png")} className="meta-icon" />
-                  {project.author}
+
+                <div className="studentdash-paper-meta-row">
+                  <img src={require("../assets/year.png")} alt="Year" className="studentdash-paper-meta-icon" />
+                  <span className="studentdash-paper-meta-text">{year}</span>
                 </div>
-                <div className="card-meta">
-                  <img src={require("../assets/year.png")} className="meta-icon" />
-                  {project.year}
-                </div>
-                <div className="card-meta">
-                  <button className="paper-view-btn" onClick={() => setPopupData(project)}>View</button>
+
+                {/* VIEW & SAVE BUTTONS */}
+                <div className="studentdash-paper-actions">
+                  <div
+                    className="studentdash-paper-view-btn"
+                    onClick={() =>
+                      setPopupData({ isView: true, title, author, year, field: fieldName })
+                    }
+                  >
+                    View Paper
+                  </div>
+
+                  <div
+                    className="studentdash-paper-save-btn"
+                    onClick={() => alert(`${title} has been saved!`)}
+                  >
+                    Save
+                  </div>
                 </div>
               </div>
-            ))
-          )}
+            );
+          })}
         </div>
       </div>
-    </div>
+
+      {/* VIEW PAPER MODAL */}
+      {popupData?.isView && (
+        <div className="studentdash-view-paper-modal-overlay">
+          <div className="studentdash-view-paper-modal">
+            {/* Close button top-right */}
+            <button
+              className="studentdash-view-paper-modal-close"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+
+            <h2 className="studentdash-view-paper-modal-title">{popupData.title}</h2>
+            <p className="studentdash-view-paper-modal-subtitle">
+              Details of the capstone paper.
+            </p>
+
+            <p><strong>Author:</strong> {popupData.author}</p>
+            <p><strong>Year:</strong> {popupData.year}</p>
+            <p><strong>Field:</strong> {popupData.field}</p>
+
+            <div className="studentdash-view-paper-modal-buttons">
+              <button
+                className="studentdash-paper-save-btn-modal"
+                onClick={() => {
+                  alert(`${popupData.title} has been saved!`);
+                  closeModal();
+                }}
+              >
+                <img src={require("../assets/save.png")} alt="Save" />
+                Save Paper
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

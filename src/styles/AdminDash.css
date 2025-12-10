@@ -165,7 +165,7 @@
 .admndash-paper-card {
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 25px;
+  padding: 45px;
   background: #fff;
   position: relative;
 }
@@ -202,8 +202,8 @@
 .admndash-paper-meta-text { font-size: 1rem; color: #000; }
 .admndash-paper-edit-btn {
   position: absolute;
-  bottom: 15px;
-  right: 18px;
+  bottom: 20px;
+  right: 25px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -301,7 +301,7 @@
   position: relative;
   left: 0;
   width: 350px;
-  height: 600px;
+  height: 630px;
   background-color: #fff;
   padding: 20px;
   margin-left: 20px;

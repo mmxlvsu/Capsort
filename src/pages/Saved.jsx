@@ -1,144 +1,50 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { savedProjectsService } from "../services/savedProjects";
 import citc from "../assets/citc.png";
-import userImg from "../assets/user.png"; 
+import userImg from "../assets/user.png";
 import filterIcon from "../assets/filter.png";
 import searchIcon from "../assets/search.png";
 import dropdownIcon from "../assets/dropdown.png";
-
-import "../styles/StudentDash.css";
+import "../styles/Saved.css";
 
 export default function Saved() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
 
-  // Filter states
   const [field, setField] = useState("All Fields");
   const [fromYear, setFromYear] = useState("From Year");
   const [toYear, setToYear] = useState("To Year");
-  const [searchQuery, setSearchQuery] = useState("");
   const [fieldOpen, setFieldOpen] = useState(false);
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
-
-  // Data states
-  const [savedProjects, setSavedProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  // Popup / remove states
-  const [showRemovedPopup, setShowRemovedPopup] = useState(false);
-  const [removingProjectId, setRemovingProjectId] = useState(null);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [projectToRemove, setProjectToRemove] = useState(null);
-
-  // User dropdown
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [popupData, setPopupData] = useState(null);
 
-  // Available fields
-  const availableFields = ["All Fields", "IoT", "Database", "Web Development", "Mobile Development", "AI/ML"];
-
-  useEffect(() => {
-    fetchSavedProjects();
-  }, [field, fromYear, toYear, searchQuery]);
-
-  const fetchSavedProjects = async () => {
-    setLoading(true);
-    setError("");
-
-    const filters = {
-      search: searchQuery || undefined,
-      field: field !== "All Fields" ? field : undefined,
-      yearFrom: fromYear !== "From Year" ? fromYear : undefined,
-      yearTo: toYear !== "To Year" ? toYear : undefined
-    };
-
-    const result = await savedProjectsService.getSavedProjects(filters);
-
-    if (result.success) {
-      setSavedProjects(result.savedProjects);
-    } else {
-      setError(result.error || "Failed to load saved projects");
-      setSavedProjects([]);
-    }
-
-    setLoading(false);
-  };
-
-  const handleRemoveProject = async (projectId) => {
-    setRemovingProjectId(projectId);
-
-    const result = await savedProjectsService.unsaveProject(projectId);
-
-    if (result.success) {
-      setSavedProjects(prev => prev.filter(sp => sp.projectId !== projectId));
-      setShowRemovedPopup(true);
-      setTimeout(() => setShowRemovedPopup(false), 2000);
-    } else {
-      alert(result.error || "Failed to remove project");
-    }
-
-    setRemovingProjectId(null);
-    setShowConfirmDialog(false);
-    setProjectToRemove(null);
-  };
-
-  const confirmRemove = (project) => {
-    setProjectToRemove(project);
-    setShowConfirmDialog(true);
-  };
-
-  const handleResetFilters = () => {
-    setField("All Fields");
-    setFromYear("From Year");
-    setToYear("To Year");
-    setSearchQuery("");
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate("/signstudent");
-  };
-
-  const getFieldColor = (fieldName) => {
-    const colors = {
-      "IoT": "#008000",
-      "Database": "#f1c40f",
-      "Web Development": "#3498db",
-      "Mobile Development": "#9b59b6",
-      "AI/ML": "#e74c3c"
-    };
-    return colors[fieldName] || "#95a5a6";
-  };
+  const SavedPapers = 20;
+  const closeModal = () => setPopupData(null);
 
   return (
-    <div className="page-container">
-      {/* Navbar */}
-      <div className="nav-container">
-        <div className="nav-left">
-          <img src={citc} alt="CITC Logo" className="nav-logo" />
-          <div className="nav-left-textbox">
-            <span className="nav-left-title">Capsort</span>
-            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
+    <>
+      <div className="saved-navbar">
+        <div className="saved-navbar-left">
+          <img src={citc} alt="CITC Logo" className="saved-navbar-logo" />
+          <div className="saved-navbar-text">
+            <span className="saved-navbar-title">Capsort</span>
+            <span className="saved-navbar-subtitle">Capsort Archiving and Sorting System</span>
           </div>
         </div>
-
-        <div className="nav-right">
-          <div className="nav-link" onClick={() => navigate("/studentdash")}>Projects</div>
-          <div className="nav-link nav-link-active" onClick={() => navigate("/saved")}>Saved Projects</div>
-          <div className="nav-link" onClick={() => navigate("/studentabout")}>About Us</div>
-
-          <div className="nav-user-wrapper">
-            <div className="nav-user-icon" onClick={() => setShowUserDropdown(!showUserDropdown)}>
-              <img src={userImg} alt="User" className="nav-user-img" />
+        <div className="saved-navbar-right">
+          <div className="saved-navbar-link" onClick={() => navigate("/studentdash")}>Projects</div>
+          <div className="saved-navbar-link saved-active" onClick={() => navigate("/Saved")}>Saved Projects</div>
+          <div className="saved-navbar-link" onClick={() => navigate("/StudentAbout")}>About Us</div>
+          <div className="saved-user-icon-container">
+            <div className="saved-user-icon" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+              <img src={userImg} alt="User" className="saved-user-img" />
             </div>
             {showUserDropdown && (
-              <div className="nav-user-dropdown">
-                <div className="nav-user-dropdown-item" onClick={handleLogout}>
-                  <img src={require("../assets/signout.png")} alt="Sign Out" className="nav-user-dropdown-icon" />
+              <div className="saved-user-dropdown">
+                <div className="saved-user-dropdown-item" onClick={() => navigate("/splash")}>
+                  <img src={require("../assets/signout.png")} alt="Sign Out" className="saved-user-dropdown-icon" />
                   <span>Sign Out</span>
                 </div>
               </div>
@@ -147,131 +53,122 @@ export default function Saved() {
         </div>
       </div>
 
-      {/* Page Title */}
-      <div className="page-header">
-        <div className="page-title">Saved Capstone Projects</div>
-        <div className="page-subtitle">
-          {loading ? "Loading..." : `${savedProjects.length} ${savedProjects.length === 1 ? 'paper' : 'papers'} saved`}
+      <div className="saved-papers-count-wrapper">
+        <div className="saved-papers-count">
+          <h2 className="saved-papers-count-title">Saved Projects Collection</h2>
+          <p className="saved-papers-count-subtitle">{SavedPapers} paper found</p>
         </div>
       </div>
 
-      {/* Content Wrapper */}
-      <div className="content-wrapper">
-        {/* Sidebar */}
-        <div className="sidebar">
-          <div className="sidebar-header">
-            <img src={filterIcon} className="sidebar-icon" alt="Filter" />
-            <h2 className="sidebar-title">Filters</h2>
+      <div className="saved-main-content-wrapper">
+        <div className="saved-filter-sidebar">
+          <div className="saved-filter-header">
+            <img src={filterIcon} alt="Filter" className="saved-filter-icon" />
+            <h2 className="saved-filter-title">Filters</h2>
           </div>
 
-          {/* Search */}
-          <label className="label">Search</label>
-          <div className="input-container">
-            <img src={searchIcon} className="input-icon" alt="Search" />
-            <input
-              className="input"
-              placeholder="Title, Author, or keyword"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <div className="saved-filter-search">
+            <label className="saved-filter-label">Search</label>
+            <div className="saved-filter-input-container">
+              <img src={searchIcon} alt="Search" className="saved-filter-input-icon" />
+              <input type="text" placeholder="Title, Author, or keyword" className="saved-filter-input" />
+            </div>
           </div>
 
-          {/* Field Dropdown */}
-          <label className="label">Fields</label>
-          <div className="dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
-            {field}
-            <img src={dropdownIcon} className="dropdown-icon" />
-          </div>
-          {fieldOpen && (
-            <div className="dropdown-list">
-              {availableFields.map(option => (
-                <div key={option} className="dropdown-item" onClick={() => { setField(option); setFieldOpen(false); }}>
-                  {option}
-                </div>
-              ))}
+          <div className="saved-filter-fields">
+            <label className="saved-filter-label">Fields</label>
+            <div className="saved-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
+              {field} <img src={dropdownIcon} alt="Dropdown" className="saved-filter-dropdown-icon" />
             </div>
-          )}
-
-          {/* Year Filters */}
-          <label className="label">Year</label>
-          <div className="year-row">
-            <div className="dropdown" onClick={() => setFromOpen(!fromOpen)}>
-              {fromYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
-            </div>
-            {fromOpen && (
-              <div className="dropdown-list tall">
-                {years.map(year => (
-                  <div key={year} className="dropdown-item" onClick={() => { setFromYear(year.toString()); setFromOpen(false); }}>
-                    {year}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="dropdown" onClick={() => setToOpen(!toOpen)}>
-              {toYear}
-              <img src={dropdownIcon} className="dropdown-icon" />
-            </div>
-            {toOpen && (
-              <div className="dropdown-list tall">
-                {years.map(year => (
-                  <div key={year} className="dropdown-item" onClick={() => { setToYear(year.toString()); setToOpen(false); }}>
-                    {year}
+            {fieldOpen && (
+              <div className="saved-filter-dropdown-list">
+                {["All Fields", "IoT", "Database"].map(option => (
+                  <div key={option} className="saved-filter-dropdown-item" onClick={() => { setField(option); setFieldOpen(false); }}>
+                    {option}
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          <button className="reset-btn" onClick={handleResetFilters}>Reset Filter</button>
+          <div className="saved-filter-year">
+            <label className="saved-filter-label">Year</label>
+            <div className="saved-filter-year-range">
+              {["from", "to"].map((type, i) => {
+                const open = type === "from" ? fromOpen : toOpen;
+                const setOpen = type === "from" ? setFromOpen : setToOpen;
+                const value = type === "from" ? fromYear : toYear;
+                const setValue = type === "from" ? setFromYear : setToYear;
+                return (
+                  <div key={i} className="saved-filter-year-item">
+                    <div className="saved-filter-dropdown" onClick={() => setOpen(!open)}>
+                      {value} <img src={dropdownIcon} alt="Dropdown" className="saved-filter-dropdown-icon" />
+                    </div>
+                    {open && (
+                      <div className="saved-filter-dropdown-list scroll">
+                        {years.map(year => (
+                          <div key={year} className="saved-filter-dropdown-item" onClick={() => { setValue(year.toString()); setOpen(false); }}>
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button className="saved-filter-reset-btn" onClick={() => { setField("All Fields"); setFromYear("From Year"); setToYear("To Year"); }}>
+            Reset Filter
+          </button>
         </div>
 
-        {/* Saved Projects Cards */}
-        <div className="cards-container">
-          {loading ? (
-            <div style={{ padding: '20px' }}>Loading saved projects...</div>
-          ) : error ? (
-            <div style={{ padding: '20px', color: 'red' }}>{error}</div>
-          ) : savedProjects.length === 0 ? (
-            <div style={{ padding: '20px' }}>
-              No saved projects yet. Go to <span style={{ color: '#008000', cursor: 'pointer' }} onClick={() => navigate("/studentdash")}>Projects</span> to save some!
-            </div>
-          ) : (
-            savedProjects.map(savedProject => {
-              const project = savedProject.project;
-              return (
-                <div key={savedProject.id} className="card">
-                  <div className="card-banner" style={{ backgroundColor: getFieldColor(project.field) }}>
-                    {project.field}
-                  </div>
-                  <div className="card-title">
-                    <img src={require("../assets/book.png")} className="card-icon" alt="Book" />
-                    {project.title}
-                  </div>
-                  <div className="card-meta">
-                    <img src={require("../assets/author.png")} className="meta-icon" alt="Author" />
-                    {project.author}
-                  </div>
-                  <div className="card-meta">
-                    <img src={require("../assets/year.png")} className="meta-icon" alt="Year" />
-                    {project.year}
-                  </div>
-                  <div className="card-meta">
-                    <button 
-                      className="paper-view-btn" 
-                      onClick={() => confirmRemove(project)}
-                      style={{ cursor: removingProjectId === project.id ? 'not-allowed' : 'pointer', opacity: removingProjectId === project.id ? 0.6 : 1 }}
-                    >
-                      {removingProjectId === project.id ? 'Removing...' : 'Remove from Saved'}
-                    </button>
-                  </div>
+        <div className="saved-papers-container">
+          {Array.from({ length: SavedPapers }).map((_, index) => {
+            const fieldName = index % 2 === 0 ? "IoT" : "Database";
+            const title = `Capstone Title ${index + 1}`;
+            const year = 2025 - index;
+            const author = `Author ${index + 1}`;
+            return (
+              <div key={index} className="saved-paper-card">
+                <div className={`saved-paper-banner ${fieldName.toLowerCase()}`}>{fieldName}</div>
+                <div className="saved-paper-title">
+                  <img src={require("../assets/book.png")} alt="Book" className="saved-paper-icon" />
+                  {title}
                 </div>
-              )
-            })
-          )}
+                <div className="saved-paper-meta-row">
+                  <img src={require("../assets/author.png")} alt="Author" className="saved-paper-meta-icon" />
+                  <span className="saved-paper-meta-text">{author}</span>
+                </div>
+                <div className="saved-paper-meta-row">
+                  <img src={require("../assets/year.png")} alt="Year" className="saved-paper-meta-icon" />
+                  <span className="saved-paper-meta-text">{year}</span>
+                </div>
+                <div className="saved-paper-actions">
+                  <button className="saved-paper-remove-btn" onClick={() => setPopupData({ isRemove: true, title })}>
+                    Removed from Saves
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+
+      {popupData?.isRemove && (
+        <div className="saved-view-paper-modal-overlay">
+          <div className="saved-view-paper-modal">
+            <p>Are you sure you want to remove <strong>{popupData.title}</strong> from your saved projects?</p>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "18px", marginTop: "25px" }}>
+              <button className="saved-paper-remove-cancel" onClick={closeModal}>Cancel</button>
+              <button className="saved-paper-remove-confirm" onClick={() => { alert(`${popupData.title} has been removed from saved projects!`); closeModal(); }}>
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import citc from "../assets/citc.png";
-import capsort from "../assets/capsort.png";
 import userImg from "../assets/user.png";
-import dropdownIcon from "../assets/dropdown.png";
-
+import signoutIcon from "../assets/signout.png";
+import capsort from "../assets/capsort.png";
 import "../styles/StudentAbout.css";
 
+// ===== TEAM MEMBERS =====
 const teamMembers = [
   {
     name: 'Dr. Maria Santos',
@@ -28,42 +28,44 @@ const teamMembers = [
   }
 ];
 
-export default function NavigationBar({ studentName }) {
-  const navigate = useNavigate();
-  const [showUserDropdown, setShowUserDropdown] = useState(false);
+// ===== CONTENT =====
+const content = {
+  title: 'About',
+  mission:
+    'CapSort is designed to provide an efficient and user-friendly platform for archiving, organizing, and discovering capstone projects from the University of Science and Technology of Southern Philippines. Our goal is to preserve the innovative work of students and make it accessible to future generations of learners and researchers.',
+  contactEmail: 'capsort@ustp.edu.ph'
+};
 
-  const content = {
-    title: 'About',
-    mission:
-      'CapSort is designed to provide an efficient and user-friendly platform for archiving, organizing, and discovering capstone projects from the University of Science and Technology of Southern Philippines. Our goal is to preserve the innovative work of students and make it accessible to future generations of learners and researchers.',
-    contactEmail: 'capsort@ustp.edu.ph'
-  };
+export default function StudentAbout() {
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <>
-      {/* Navigation Bar */}
-      <div className="nav-container">
-        <div className="nav-left">
-          <img src={citc} alt="CITC Logo" className="nav-logo" />
-          <div className="nav-left-textbox">
-            <span className="nav-left-title">Capsort</span>
-            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
+    <div className="studentabout-wrapper">
+      {/* NAVBAR */}
+      <div className="about-navbar">
+        <div className="about-navbar-left">
+          <img src={citc} alt="CITC Logo" className="about-logo" />
+          <div className="about-title-wrapper">
+            <span className="about-title">Capsort</span>
+            <span className="about-subtitle">Capsort Archiving and Sorting System</span>
           </div>
         </div>
 
-        <div className="nav-right">
-          <div className="nav-link" onClick={() => navigate("/studentdash")}>Projects</div>
-          <div className="nav-link" onClick={() => navigate("/saved")}>Saved Projects</div>
-          <div className="nav-link nav-link-active" onClick={() => navigate("/studentabout")}>About Us</div>
+        <div className="about-navbar-right">
+          <div className="about-link" onClick={() => navigate("/studentdash")}>Projects</div>
+          <div className="about-link" onClick={() => navigate("/Saved")}>Saved Projects</div>
+          <div className="about-link about-active" onClick={() => navigate("/StudentAbout")}>About Us</div>
 
-          <div className="nav-user-wrapper">
-            <div className="nav-user-icon" onClick={() => setShowUserDropdown(!showUserDropdown)}>
-              <img src={userImg} alt="User" className="nav-user-img" />
+          <div className="about-user-container">
+            <div className="about-user-icon" onClick={() => setShowDropdown(!showDropdown)}>
+              <img src={userImg} alt="User" className="about-user-img" />
             </div>
-            {showUserDropdown && (
-              <div className="nav-user-dropdown">
-                <div className="nav-user-dropdown-item" onClick={() => navigate("/login")}>
-                  <img src={require("../assets/signout.png")} alt="Sign Out" className="nav-user-dropdown-icon" />
+
+            {showDropdown && (
+              <div className="about-user-dropdown">
+                <div className="about-user-dropdown-item" onClick={() => navigate("/splash")}>
+                  <img src={signoutIcon} alt="Sign Out" className="about-user-dropdown-icon" />
                   <span>Sign Out</span>
                 </div>
               </div>
@@ -71,59 +73,61 @@ export default function NavigationBar({ studentName }) {
           </div>
         </div>
       </div>
-      
-      <div className="aboutus-wrapper">
+
+      {/* MAIN CONTENT */}
+      <div className="studentabout-content">
         {/* Header */}
-        <div className="aboutus-header">
-          <h1 className="aboutus-title">{content.title}</h1>
-          <img src={capsort} alt="CapSort Logo" className="aboutus-logo" />
+        <div className="studentabout-header">
+          <h1>{content.title}</h1>
+          <img src={capsort} alt="CapSort Logo" className="studentabout-logo" />
         </div>
 
-        {/* Mission Section */}
-        <div className="aboutus-mission">
-          <h2 className="aboutus-mission-title">Our Mission</h2>
-          <p className="aboutus-mission-desc">{content.mission}</p>
+        {/* Mission */}
+        <div className="studentabout-mission">
+          <h2>Our Mission</h2>
+          <p>{content.mission}</p>
         </div>
 
-        {/* Features Section */}
-        <div className="aboutus-features">
+        {/* Features */}
+        <div className="studentabout-features">
           {[
             { title: "Easy Search", desc: "Quickly find relevant capstone papers using our advanced filtering system." },
             { title: "Organized", desc: "Projects are categorized by field, year, and author for easy navigation." },
             { title: "Accessible", desc: "Open to students, faculty, and guests to explore innovative projects." },
           ].map((feature, index) => (
-            <div key={index} className="aboutus-feature-card">
-              <h3 className="aboutus-feature-title">{feature.title}</h3>
-              <p className="aboutus-feature-desc">{feature.desc}</p>
+            <div key={index} className="studentabout-feature-card">
+              <h3>{feature.title}</h3>
+              <p>{feature.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Team Section */}
-        <div className="aboutus-team-section">
-          <h2 className="aboutus-team-title">Our Team</h2>
-          <div className="aboutus-team-cards">
+        {/* Team */}
+        <div className="studentabout-team">
+          <h2>Our Team</h2>
+          <div className="studentabout-team-members">
             {teamMembers.map((member, index) => (
-              <div key={index} className="aboutus-team-card">
-                <div className="aboutus-team-avatar">{member.initials}</div>
-                <h3 className="aboutus-team-name">{member.name}</h3>
-                <p className="aboutus-team-role">{member.role}</p>
-                <p className="aboutus-team-bio">{member.bio}</p>
+              <div key={index} className="studentabout-team-member">
+                <div className="studentabout-avatar">{member.initials}</div>
+                <h3>{member.name}</h3>
+                <p className="studentabout-role">{member.role}</p>
+                <p>{member.bio}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="guest-contact">
-  <h2>Get in Touch</h2>
-  <p>Have questions or suggestions? We'd love to hear from you.</p>
-  <p className="email">
-    <a href={`mailto:${content.contactEmail}`} style={{ color: "white", textDecoration: "underline" }}>
-      {content.contactEmail}
-    </a>
-  </p>
-</div>
+        {/* Contact */}
+        <div className="studentabout-contact">
+          <h2>Get in Touch</h2>
+          <p>Have questions or suggestions? We'd love to hear from you.</p>
+          <p className="studentabout-email">
+            <a href={`mailto:${content.contactEmail}`} className="studentabout-contact-email-link">
+              {content.contactEmail}
+            </a>
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

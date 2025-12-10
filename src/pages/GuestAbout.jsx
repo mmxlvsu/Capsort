@@ -34,23 +34,35 @@ const content = {
   contactEmail: 'capsort@ustp.edu.ph'
 };
 
-export default function Guestabout() {
+export default function GuestAbout() {
   const navigate = useNavigate();
+  const currentPath = window.location.pathname;
 
   return (
     <>
       {/* Navigation Bar */}
-      <div className="guest-nav">
-        <div className="guest-nav-left">
-          <img src={citc} alt="CITC Logo" className="guest-nav-left-logo" />
-          <div className="guest-nav-left-text">
-            <span>Capsort</span>
-            <span>Capsort Archiving and Sorting System</span>
+      <div className="nav-container">
+        <div className="nav-left">
+          <img src={citc} alt="CITC Logo" className="nav-logo" />
+          <div className="nav-left-textbox">
+            <span className="nav-left-title">Capsort</span>
+            <span className="nav-left-subtitle">Capsort Archiving and Sorting System</span>
           </div>
         </div>
-        <div className="guest-nav-right">
-          <div onClick={() => navigate("/guest")}>Projects</div>
-          <div className="active">About Us</div>
+
+        <div className="nav-right">
+          <div
+            className={`nav-link ${currentPath === "/guest" ? "nav-link-active" : ""}`}
+            onClick={() => navigate("/guest")}
+          >
+            Projects
+          </div>
+          <div
+            className={`nav-link ${currentPath === "/guestabout" ? "nav-link-active" : ""}`}
+            onClick={() => navigate("/guestabout")}
+          >
+            About Us
+          </div>
         </div>
       </div>
 
@@ -97,15 +109,16 @@ export default function Guestabout() {
           </div>
         </div>
 
+        {/* Contact */}
         <div className="guest-contact">
-  <h2>Get in Touch</h2>
-  <p>Have questions or suggestions? We'd love to hear from you.</p>
-  <p className="email">
-    <a href={`mailto:${content.contactEmail}`} style={{ color: "white", textDecoration: "underline" }}>
-      {content.contactEmail}
-    </a>
-  </p>
-</div>
+          <h2>Get in Touch</h2>
+          <p>Have questions or suggestions? We'd love to hear from you.</p>
+          <p className="email">
+            <a href={`mailto:${content.contactEmail}`} className="contact-email-link">
+              {content.contactEmail}
+            </a>
+          </p>
+        </div>
       </div>
     </>
   );

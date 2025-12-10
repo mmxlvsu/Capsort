@@ -9,15 +9,22 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 400;
-  position: relative;
-  transition: color 0.2s, font-weight 0.2s;
+  border-bottom: 1px solid transparent;
+  transition: 0.2s;
   padding-bottom: 2px;
 }
 
-.nav-link:hover {
-  color: #1a1851;
+.nav-link-active {
+  border-bottom: 2px solid #1a1851;
   font-weight: 700;
+  color: #1a1851;
 }
+
+.nav-link:hover {
+  font-weight: 700;
+  color: #1a1851;
+}
+
 
 .nav-link.nav-active {
   font-weight: 700;

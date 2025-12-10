@@ -1,0 +1,352 @@
+/* NAVBAR */
+.admndash-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.admndash-navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.admndash-navbar-logo {
+  width: 40px;
+  height: 50px;
+  margin: 0 20px;
+}
+
+.admndash-navbar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.admndash-navbar-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1a1851;
+}
+
+.admndash-navbar-subtitle {
+  font-size: 0.8rem;
+  color: #1a1851;
+  font-weight: 400;
+}
+
+.admndash-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.admndash-navbar-link {
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+}
+
+.admndash-active {
+  color: #1a1851;
+  font-weight: 700;
+  border-bottom: 2px solid #1a1851;
+}
+
+.admndash-user-icon-container {
+  position: relative;
+  margin-right: 20px;
+}
+
+.admndash-user-icon {
+  cursor: pointer;
+}
+
+.admndash-user-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid black;
+  padding: 7px;
+  box-sizing: content-box;
+}
+
+/* USER DROPDOWN */
+.admndash-user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 56px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+  min-width: 120px;
+  width: 180px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admndash-user-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.admndash-user-dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.admndash-user-dropdown-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+
+/* ADD PAPER BUTTON */
+.admndash-add-paper-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 35px 40px;
+  background-color: #f9f9f9;
+}
+
+.admndash-add-paper-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 25px;
+  cursor: pointer;
+  background-color: #1a1851;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.admndash-add-paper-btn:hover { background-color: black; }
+
+.admndash-add-paper-icon {
+  width: 22px;
+  height: 21px;
+  filter: invert(100%);
+}
+
+/* MAIN CONTENT WRAPPER */
+.admndash-main-content-wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* FILTER SIDEBAR */
+.admndash-filter-sidebar {
+  position: sticky;
+  width: 350px;
+  height: fit-content; 
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 6px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+
+/* PAPERS GRID */
+.admndash-papers-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+}
+
+/* PAPER CARD */
+.admndash-paper-card {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 25px;
+  background: #fff;
+  position: relative;
+}
+.admndash-paper-banner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  color: #fff;
+}
+.admndash-paper-banner.iot { background-color: green; }
+.admndash-paper-banner.database { background-color: #FFBF00; }
+.admndash-paper-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.admndash-paper-icon { width: 40px; }
+.admndash-paper-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 12px;
+  margin-left: 45px;
+}
+.admndash-paper-meta-icon { width: 24px; height: 24px; flex-shrink: 0; }
+.admndash-paper-meta-text { font-size: 1rem; color: #000; }
+.admndash-paper-edit-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.admndash-paper-edit-icon { width: 20px; height: 20px; }
+.admndash-add-paper-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.admndash-add-paper-modal {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  width: 800px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.admndash-add-paper-modal-title { margin:12px 0 8px; font-size:1.4rem; font-weight:700; }
+.admndash-add-paper-modal-subtitle { margin-bottom:12px; font-size:1rem; }
+.admndash-add-paper-modal-input {
+  width: 100%;
+  padding: 8px 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.admndash-add-paper-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+.admndash-add-paper-modal-cancel, .admndash-trash-cancel {
+  border: 1px solid black;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admndash-add-paper-modal-submit, .admndash-trash-confirm {
+  background-color: #1a1851;
+  color: #fff;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admndash-add-paper-modal-trash {
+  background-color: #f44336;
+  color: #fff;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admndash-add-paper-modal-cancel:hover, .admndash-add-paper-modal-submit:hover, .admndash-trash-cancel:hover {
+  background-color: black;
+  color: white;
+}
+.admndash-trash-confirm-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.admndash-trash-confirm-modal {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 5px;
+  text-align: center;
+  width: 400px;
+}
+.admndash-trash-confirm-buttons {
+  display: flex;
+  gap: 25px;
+  margin-top: 20px;
+    font-size: 0.9rem;
+
+}
+.admndash-trash-confirm { background-color: #f44336; color: #fff; padding: 5px 20px; border-radius: 5px; cursor: pointer; }
+.admndash-trash-confirm:hover { background-color: rgb(163,23,23); }
+.admndash-filter-sidebar {
+  position: relative;
+  left: 0;
+  width: 350px;
+  height: 600px;
+  background-color: #fff;
+  padding: 20px;
+  margin-left: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 6px;
+  z-index: 100;
+}
+.admndash-filter-header { display: flex; align-items: center; gap:10px; margin-bottom:25px; }
+.admndash-filter-icon { width:20px; height:20px; }
+.admndash-filter-title { font-weight:bold; font-size:1.2rem; }
+.admndash-filter-search, .admndash-filter-fields, .admndash-filter-year { margin-bottom:15px; }
+.admndash-filter-label { display:block; margin:14px 0 4px; font-size:0.9rem; }
+.admndash-filter-input-container { position: relative; }
+.admndash-filter-input-icon { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:16px; height:16px; pointer-events:none; }
+.admndash-filter-input { width:100%; padding:8px 8px 8px 32px; font-size:0.8rem; border:0.8px solid #bfbfbf; border-radius:4px; }
+.admndash-filter-dropdown {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px; border:0.8px solid #bfbfbf; border-radius:4px; cursor:pointer; font-size:0.8rem;
+}
+.admndash-filter-dropdown-icon { width:13px; height:13px; }
+.admndash-filter-dropdown-list {
+  margin-top:5px;
+  border:0.8px solid #bfbfbf;
+  border-radius:4px;
+  background-color:#fff;
+  max-height:140px;
+  overflow-y:auto;
+}
+.admndash-filter-dropdown-item { padding:8px; cursor:pointer; font-size:0.7rem; }
+.admndash-filter-dropdown-item:hover { background-color:#efefef; }
+.admndash-filter-year-range { display:flex; flex-direction:column; gap:4px; }
+.admndash-filter-year-item { flex:1; }
+.admndash-filter-reset-btn {
+  width:100%;
+  padding:8px 0;
+  margin-top:15px;
+  background-color:#1a1851;
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  font-size:0.8rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+.admndash-filter-reset-btn:hover { background-color:black; }

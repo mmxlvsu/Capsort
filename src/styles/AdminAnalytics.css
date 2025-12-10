@@ -1,0 +1,362 @@
+/* Navbar */
+.aa-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.aa-navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.aa-navbar-logo {
+  width: 40px;
+  height: 50px;
+  margin: 0 20px;
+}
+
+.aa-navbar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.aa-navbar-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1a1851;
+}
+
+.aa-navbar-subtitle {
+  font-size: 0.8rem;
+  color: #1a1851;
+  font-weight: 400;
+}
+
+.aa-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.aa-navbar-link {
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+}
+
+.aa-active {
+  color: #1a1851;
+  font-weight: 700;
+  border-bottom: 2px solid #1a1851;
+}
+
+.aa-user-icon-container {
+  position: relative;
+  margin-right: 20px;
+}
+
+.aa-user-icon {
+  cursor: pointer;
+}
+
+.aa-user-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid black;
+  padding: 7px;
+  box-sizing: content-box;
+}
+
+/* User Dropdown */
+.aa-user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 56px;
+  background-color: #fff;
+  border-radius: 5px;
+  min-width: 120px;
+  width: 180px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.aa-user-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.aa-user-dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.aa-user-dropdown-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+
+/* Greeting Section */
+.aa-greeting-section {
+  margin: 30px 80px;
+  padding-left: 20px;
+}
+
+.aa-greeting-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1851;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.aa-greeting-wave {
+  width: 32px;
+  height: 32px;
+}
+
+.aa-greeting-subtitle {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 400;
+}
+
+/* Summary Boxes */
+.aa-summary-container {
+  display: flex;
+  gap: 40px;
+  margin: 20px 0 0 100px;
+}
+
+.aa-projects-box,
+.aa-active-box,
+.aa-saves-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #C9C7FF;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 390px;
+  gap: 12px;
+}
+
+.aa-projects-icon,
+.aa-active-icon,
+.aa-saves-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.aa-projects-label,
+.aa-active-label,
+.aa-saves-label {
+  font-size: 0.9rem;
+  color: black;
+  font-weight: 500;
+}
+
+.aa-projects-count,
+.aa-active-count,
+.aa-saves-count {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1851;
+}
+
+/* Most Viewed Project */
+.aa-most-viewed-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: white;
+  padding: 25px;
+  border-radius: 5px;
+  width: 450px;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.aa-view-icon {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.aa-view-label,
+.aa-view-project-title,
+.aa-view-field {
+  margin-left: 20px;
+}
+
+.aa-view-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: black;
+}
+
+.aa-view-project-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1851;
+}
+
+.aa-view-field {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  display: inline-block;
+}
+
+.aa-iot-field {
+  background-color: #4CAF50;
+}
+
+.aa-database-field {
+  background-color: #FFC107;
+}
+
+.aa-view-meta {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  margin-left: 20px;
+}
+
+.aa-view-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aa-view-meta-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Graph Section */
+.aa-graph-section {
+  display: flex;
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.aa-graph-container {
+  flex: 2;
+  background: #fff;
+  padding: 25px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-left: 100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.aa-graph-title,
+.aa-track-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: black;
+}
+
+.aa-graph-subtitle,
+.aa-track-subtitle {
+  font-size: 18px;
+  color: grey;
+  margin-bottom: 15px;
+}
+
+.aa-graph-wrapper {
+  width: 100%;
+  height: 330px;
+}
+
+.aa-graph-right {
+  flex: 1;
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 475px;
+}
+
+.aa-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+.aa-legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.aa-legend-color.iot {
+  background: green;
+}
+
+.aa-legend-color.database {
+  background: #FFBF00;
+}
+
+.aa-pie-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 40px;
+}
+
+/* Top Saved Projects */
+.aa-top-saved-container {
+  margin: 20px 0 20px 190px;
+  padding: 40px;
+  background: white;
+  border-radius: 5px;
+  width: 1500px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.aa-top-saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.aa-top-saved-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aa-top-saved-title {
+  flex: 1;
+  font-weight: 400;
+  color: #333;
+}
+
+.aa-top-saved-bar {
+  height: 34px;
+  border-radius: 5px;
+}
+
+.aa-top-saved-count {
+  width: 100px;
+  text-align: right;
+  font-weight: 400;
+  color: #555;
+}

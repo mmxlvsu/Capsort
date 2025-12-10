@@ -17,7 +17,7 @@ export default function FilterSidebarUI() {
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
 
-  // Active tab state
+  // Active tab
   const [activeTab, setActiveTab] = useState("Projects");
 
   const handleTabClick = (tab) => {
@@ -41,7 +41,7 @@ export default function FilterSidebarUI() {
           {["Projects", "About Us"].map((tab) => (
             <div
               key={tab}
-              className={activeTab === tab ? "active" : ""}
+              className={`nav-link ${activeTab === tab ? "nav-link-active" : ""}`}
               onClick={() => handleTabClick(tab)}
             >
               {tab}
@@ -147,12 +147,14 @@ export default function FilterSidebarUI() {
           </div>
 
           {/* Reset */}
-          <button className="reset-btn"
+          <button
+            className="reset-btn"
             onClick={() => {
               setField("All Fields");
               setFromYear("From Year");
               setToYear("To Year");
-            }}>
+            }}
+          >
             Reset Filter
           </button>
         </div>
@@ -165,10 +167,10 @@ export default function FilterSidebarUI() {
 
             return (
               <div key={index} className="card">
-  {/* Banner */}
-  <div className="card-banner" style={{ backgroundColor: bannerColor }}>
-    {field}
-  </div>
+                {/* Banner */}
+                <div className="card-banner" style={{ backgroundColor: bannerColor }}>
+                  {field}
+                </div>
 
                 <div className="card-title">
                   <img src={require("../assets/book.png")} className="card-icon" />

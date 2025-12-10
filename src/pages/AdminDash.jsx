@@ -7,10 +7,13 @@ import searchIcon from "../assets/search.png";
 import dropdownIcon from "../assets/dropdown.png";
 import addIcon from "../assets/add.png";
 
-export default function NavigationBar({ studentName }) {
+import "../styles/AdminDash.css";
+
+export default function NavigationBar() {
   const navigate = useNavigate();
   const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
 
+  
   const [field, setField] = useState("All Fields");
   const [fromYear, setFromYear] = useState("From Year");
   const [toYear, setToYear] = useState("To Year");
@@ -18,126 +21,55 @@ export default function NavigationBar({ studentName }) {
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-
+  const [showTrashConfirm, setShowTrashConfirm] = useState(false);
   const [popupData, setPopupData] = useState(null);
-  const [isSaved, setIsSaved] = useState(false);
-  const [showSavedPopup, setShowSavedPopup] = useState(false);
-
-  const inputStyle = {
-    padding: "6px",
-    fontSize: "12px",
-    borderRadius: "4px",
-    border: "1px solid #d8d8d8",
-  };
-
-  const saveButtonStyle = {
-    backgroundColor: "#1a1851",
-    color: "white",
-    padding: "6px 12px",
-    borderRadius: "6px",
-    cursor: "pointer",
-    marginTop: "10px",
-  };
 
   return (
     <>
-      {/* Navbar */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "35px",
-          backgroundColor: "white",
-          display: "flex",
-          alignItems: "center",
-          borderBottom: "1px solid #D8D8D8",
-          justifyContent: "space-between",
-          padding: "0 30px",
-          fontFamily: "Poppins",
-          fontSize: "10px",
-          fontWeight: 400,
-          zIndex: 1000,
-        }}
-      >
-        {/* Left: Logo + Text */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <img src={citc} alt="CITC Logo" style={{ height: "20px" }} />
-          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
-            <span style={{ fontSize: "10px", fontWeight: 700 }}>Capsort</span>
-            <span style={{ fontSize: "8px", fontWeight: 400 }}>
+      {/* NAVBAR */}
+      <div className="admndash-navbar">
+        <div className="admndash-navbar-left">
+          <img src={citc} alt="CITC Logo" className="admndash-navbar-logo" />
+          <div className="admndash-navbar-text">
+            <span className="admndash-navbar-title">Capsort</span>
+            <span className="admndash-navbar-subtitle">
               Capsort Archiving and Sorting System
             </span>
           </div>
         </div>
 
-        {/* Right Navigation */}
-        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+        <div className="admndash-navbar-right">
           <div
-            style={{ borderBottom: "1px solid black", fontWeight: "700", cursor: "pointer" }}
-            onClick={() => navigate("/guest")}
+            className="admndash-navbar-link admndash-active"
+            onClick={() => navigate("/admindash")}
           >
             Projects
           </div>
-          <div style={{ cursor: "pointer" }} onClick={() => navigate("/adminanalytics")}>
+          <div
+            className="admndash-navbar-link"
+            onClick={() => navigate("/adminanalytics")}
+          >
             Analytics
           </div>
 
-          {/* User Icon */}
-          <div style={{ position: "relative" }}>
+          <div className="admndash-user-icon-container">
             <div
-              style={{
-                width: "22px",
-                height: "22px",
-                borderRadius: "50%",
-                backgroundColor: "white",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                border: "0.5px solid #1A1851",
-                cursor: "pointer",
-              }}
+              className="admndash-user-icon"
               onClick={() => setShowUserDropdown(!showUserDropdown)}
             >
-              <img
-                src={userImg}
-                alt="User"
-                style={{ width: "12px", height: "12px", borderRadius: "20%" }}
-              />
+              <img src={userImg} alt="User" className="admndash-user-img" />
             </div>
 
             {showUserDropdown && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "28px",
-                  right: 0,
-                  backgroundColor: "white",
-                  border: "1px solid #d8d8d8",
-                  borderRadius: "4px",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-                  width: "120px",
-                  fontFamily: "Poppins",
-                  fontSize: "10px",
-                  zIndex: 1000,
-                }}
-              >
+              <div className="admndash-user-dropdown">
                 <div
-                  style={{
-                    padding: "8px",
-                    cursor: "pointer",
-                    color: "black",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                  }}
-                  onClick={() => navigate("/login")}
+                  className="admndash-user-dropdown-item"
+                  onClick={() => navigate("/splash")}
                 >
                   <img
                     src={require("../assets/signout.png")}
                     alt="Sign Out"
-                    style={{ width: "12px", height: "12px" }}
+                    className="admndash-user-dropdown-icon"
                   />
                   <span>Sign Out</span>
                 </div>
@@ -147,536 +79,216 @@ export default function NavigationBar({ studentName }) {
         </div>
       </div>
 
-      {/* Add New Paper Button */}
-      <div
-        style={{
-          position: "absolute",
-          top: "61px",
-          right: "50px",
-          display: "flex",
-          alignItems: "center",
-          gap: "9px",
-          fontFamily: "Poppins",
-          fontSize: "10px",
-          fontWeight: 600,
-          color: "white",
-          backgroundColor: "#1a1851",
-          padding: "6px 20px",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
-        onClick={() => setPopupData({ isNew: true })}
-      >
-        <img src={addIcon} alt="Add" style={{ width: "11px", height: "10px", filter: "invert(100%)" }} />
-        Add new paper
-      </div>
-
-      {/* Papers Container */}
-      <div
-        className="hide-scrollbar"
-        style={{
-          position: "absolute",
-          top: "105px",
-          right: "30px",
-          width: "70%",
-          bottom: "20px",
-          overflowY: "auto",
-          padding: "12px",
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "20px",
-        }}
-      >
-        {Array.from({ length: 20 }).map((_, index) => {
-          const fieldName = index % 2 === 0 ? "IoT" : "Database";
-          const bannerColor = fieldName === "IoT" ? "#2ecc71" : "#f1c40f";
-          const title = `Capstone Title ${index + 1}`;
-          const year = 2025 - index;
-          const author = `Author ${index + 1}`;
-
-          return (
-            <div
-              key={index}
-              style={{
-                position: "relative",
-                padding: "12px",
-                backgroundColor: "white",
-                borderRadius: "8px",
-                border: "0.5px solid #1A1851",
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                fontFamily: "Poppins",
-                minHeight: "130px",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  top: "0px",
-                  right: "0px",
-                  backgroundColor: bannerColor,
-                  color: "white",
-                  fontSize: "10px",
-                  fontWeight: "500",
-                  padding: "2px 6px",
-                  borderTopRightRadius: "8px",
-                  borderBottomLeftRadius: "8px",
-                }}
-              >
-                {fieldName}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontWeight: 600,
-                  fontSize: "13px",
-                }}
-              >
-                <img
-                  src={require("../assets/book.png")}
-                  alt="Book"
-                  style={{ width: "18px", height: "18px" }}
-                />
-                {title}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "10px",
-                  color: "#6A6A6A",
-                }}
-              >
-                <img
-                  src={require("../assets/author.png")}
-                  alt="Author"
-                  style={{ width: "12px", height: "12px" }}
-                />{" "}
-                {author}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "10px",
-                  color: "#6A6A6A",
-                }}
-              >
-                <img
-                  src={require("../assets/year.png")}
-                  alt="Year"
-                  style={{ width: "12px", height: "12px" }}
-                />{" "}
-                {year}
-              </div>
-
-              {/* View Button */}
-              <div style={{ marginTop: "12px", display: "flex", justifyContent: "flex-end" }}>
-                <button
-                  style={{
-                    backgroundColor: "white",
-                    color: "black",
-                    border: "0.5px solid black",
-                    borderRadius: "4px",
-                    padding: "4px 18px",
-                    fontSize: "9px",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
-                  onClick={() => setPopupData({ title, fieldName, year, author })}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#1a1851";
-                    e.currentTarget.style.color = "white";
-                    e.currentTarget.style.fontWeight = "bold";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "white";
-                    e.currentTarget.style.color = "black";
-                  }}
-                >
-                  View
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Popup Modal */}
-      {popupData && (
+      {/* ADD PAPER BUTTON */}
+      <div className="admndash-add-paper-btn-wrapper">
         <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 2000,
-          }}
+          className="admndash-add-paper-btn"
+          onClick={() => setPopupData({ isNew: true })}
         >
-          <div
-            style={{
-              width: "400px",
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              position: "relative",
+          <img src={addIcon} alt="Add" className="admndash-add-paper-icon" />
+          Add new paper
+        </div>
+      </div>
+
+      {/* MAIN CONTENT: FILTER + PAPERS */}
+      <div className="admndash-main-content-wrapper">
+        {/* FILTER SIDEBAR */}
+        <div className="admndash-filter-sidebar">
+          <div className="admndash-filter-header">
+            <img src={filterIcon} alt="Filter" className="admndash-filter-icon" />
+            <h2 className="admndash-filter-title">Filters</h2>
+          </div>
+
+          <div className="admndash-filter-search">
+            <label className="admndash-filter-label">Search</label>
+            <div className="admndash-filter-input-container">
+              <img src={searchIcon} alt="Search" className="admndash-filter-input-icon" />
+              <input
+                type="text"
+                placeholder="Title, Author, or keyword"
+                className="admndash-filter-input"
+              />
+            </div>
+          </div>
+
+          <div className="admndash-filter-fields">
+            <label className="admndash-filter-label">Fields</label>
+            <div className="admndash-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
+              {field} <img src={dropdownIcon} alt="Dropdown" className="admndash-filter-dropdown-icon" />
+            </div>
+            {fieldOpen && (
+              <div className="admndash-filter-dropdown-list">
+                {["All Fields", "IoT", "Database"].map(option => (
+                  <div
+                    key={option}
+                    className="admndash-filter-dropdown-item"
+                    onClick={() => {
+                      setField(option);
+                      setFieldOpen(false);
+                    }}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="admndash-filter-year">
+            <label className="admndash-filter-label">Year</label>
+            <div className="admndash-filter-year-range">
+              {["from", "to"].map((type, i) => {
+                const open = type === "from" ? fromOpen : toOpen;
+                const setOpen = type === "from" ? setFromOpen : setToOpen;
+                const value = type === "from" ? fromYear : toYear;
+                const setValue = type === "from" ? setFromYear : setToYear;
+
+                return (
+                  <div key={i} className="admndash-filter-year-item">
+                    <div className="admndash-filter-dropdown" onClick={() => setOpen(!open)}>
+                      {value} <img src={dropdownIcon} alt="Dropdown" className="admndash-filter-dropdown-icon" />
+                    </div>
+                    {open && (
+                      <div className="admndash-filter-dropdown-list scroll">
+                        {years.map(year => (
+                          <div
+                            key={year}
+                            className="admndash-filter-dropdown-item"
+                            onClick={() => {
+                              setValue(year.toString());
+                              setOpen(false);
+                            }}
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            className="admndash-filter-reset-btn"
+            onClick={() => {
+              setField("All Fields");
+              setFromYear("From Year");
+              setToYear("To Year");
             }}
           >
-            <button
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "transparent",
-                border: "none",
-                fontSize: "16px",
-                cursor: "pointer",
-              }}
-              onClick={() => setPopupData(null)}
-            >
-              ×
-            </button>
+            Reset Filter
+          </button>
+        </div>
 
-            {popupData.isNew ? (
-              <>
-                <h2 style={{ fontSize: "14px", fontWeight: 600 }}>Add Capstone Paper</h2>
-                <input type="text" placeholder="Title" style={inputStyle} />
-                <input type="text" placeholder="Author" style={inputStyle} />
-                <input type="text" placeholder="Field" style={inputStyle} />
-                <input type="number" placeholder="Year" style={inputStyle} />
-                <button
-                  style={saveButtonStyle}
-                  onClick={() => {
-                    console.log("Save new paper");
-                    setPopupData(null);
-                  }}
-                >
-                  Save
-                </button>
-              </>
-            ) : (
-              <>
-                <h2 style={{ fontSize: "12px", fontWeight: 600 }}>{popupData.title}</h2>
-                <p style={{ fontSize: "12px" }}>Field: {popupData.fieldName}</p>
-                <p style={{ fontSize: "12px" }}>Author: {popupData.author}</p>
-                <p style={{ fontSize: "12px" }}>Year: {popupData.year}</p>
+        {/* PAPERS */}
+        <div className="admndash-papers-container">
+          {Array.from({ length: 20 }).map((_, index) => {
+            const fieldName = index % 2 === 0 ? "IoT" : "Database";
+            const title = `Capstone Title ${index + 1}`;
+            const year = 2025 - index;
+            const author = `Author ${index + 1}`;
+
+            return (
+              <div key={index} className="admndash-paper-card">
+                <div className={`admndash-paper-banner ${fieldName.toLowerCase()}`}>{fieldName}</div>
+
+                <div className="admndash-paper-title">
+                  <img src={require("../assets/book.png")} alt="Book" className="admndash-paper-icon" />
+                  {title}
+                </div>
+
+                <div className="admndash-paper-meta-row">
+                  <img src={require("../assets/author.png")} alt="Author" className="admndash-paper-meta-icon" />
+                  <span className="admndash-paper-meta-text">{author}</span>
+                </div>
+
+                <div className="admndash-paper-meta-row">
+                  <img src={require("../assets/year.png")} alt="Year" className="admndash-paper-meta-icon" />
+                  <span className="admndash-paper-meta-text">{year}</span>
+                </div>
 
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                    gap: "6px",
-                    marginTop: "10px",
-                  }}
+                  className="admndash-paper-edit-btn"
+                  onClick={() =>
+                    setPopupData({ isEdit: true, title, author, year, field: fieldName })
+                  }
                 >
-                  <span style={{ fontSize: "11px", fontWeight: 500 }}>Add to Saved</span>
-                  <img
-                    src={require("../assets/save.png")}
-                    alt="Save"
-                    style={{ width: "15px", height: "15px", cursor: "pointer" }}
-                    onMouseEnter={(e) => {
-                      if (!isSaved) e.currentTarget.src = require("../assets/saved.png");
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSaved) e.currentTarget.src = require("../assets/save.png");
-                    }}
-                    onClick={() => {
-                      setIsSaved(true);
-                      setShowSavedPopup(true);
-                    }}
-                  />
+                  <img src={require("../assets/edit.png")} alt="Edit" className="admndash-paper-edit-icon" />
+                  Edit Paper
                 </div>
-              </>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {popupData?.isEdit && (
+        <div className="admndash-add-paper-modal-overlay">
+          <div className="admndash-add-paper-modal">
+            <h2 className="admndash-add-paper-modal-title">Edit Capstone Paper</h2>
+            <p className="admndash-add-paper-modal-subtitle">Update the details of the capstone paper.</p>
+
+            <label>Title</label>
+            <input type="text" placeholder="Enter paper title" className="admndash-add-paper-modal-input" />
+            <label>Author</label>
+            <input type="text" placeholder="Enter author name" className="admndash-add-paper-modal-input" />
+            <label>Year</label>
+            <input type="text" placeholder="2025" inputMode="numeric" className="admndash-add-paper-modal-input" />
+            <label>Field</label>
+            <select className="admndash-add-paper-modal-input">
+              <option value="">Select Field</option>
+              <option value="IoT">IoT</option>
+              <option value="Database">Database</option>
+            </select>
+
+            <div className="admndash-add-paper-modal-buttons">
+              <button className="admndash-add-paper-modal-trash" onClick={() => setShowTrashConfirm(true)}>Move to Trash</button>
+              <button className="admndash-add-paper-modal-submit">Save Changes</button>
+            </div>
+
+            {showTrashConfirm && (
+              <div className="admndash-trash-confirm-overlay">
+                <div className="admndash-trash-confirm-modal">
+                  <p>Are you sure you want to move this paper to trash?</p>
+                  <div className="admndash-trash-confirm-buttons">
+                    <button className="admndash-trash-cancel" onClick={() => setShowTrashConfirm(false)}>Cancel</button>
+                    <button className="admndash-trash-confirm" onClick={() => { setPopupData(null); setShowTrashConfirm(false); }}>Yes, Move to Trash</button>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
       )}
 
-      {/* Saved Confirmation Popup */}
-      {showSavedPopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.3)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 3000,
-          }}
-          onClick={() => setShowSavedPopup(false)}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "20px 30px",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "#1a1851",
-            }}
-          >
-            Successfully imported to your Saved Projects
+      {popupData?.isNew && (
+        <div className="admndash-add-paper-modal-overlay">
+          <div className="admndash-add-paper-modal">
+            <h2 className="admndash-add-paper-modal-title">Add Capstone Paper</h2>
+            <p className="admndash-add-paper-modal-subtitle">Enter the details of the capstone paper to add it to the repository.</p>
+
+            <label>Title</label>
+            <input type="text" placeholder="Enter paper title" className="admndash-add-paper-modal-input" />
+            <label>Author</label>
+            <input type="text" placeholder="Enter author name" className="admndash-add-paper-modal-input" />
+            <label>Year</label>
+            <input type="text" placeholder="2025" inputMode="numeric" className="admndash-add-paper-modal-input" />
+            <label>Field</label>
+            <select className="admndash-add-paper-modal-input">
+              <option value="">Select Field</option>
+              <option value="IoT">IoT</option>
+              <option value="Database">Database</option>
+            </select>
+
+            <div className="admndash-add-paper-modal-buttons">
+              <button className="admndash-add-paper-modal-cancel" onClick={() => setPopupData(null)}>Cancel</button>
+              <button className="admndash-add-paper-modal-submit">Add Paper</button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Filter Sidebar */}
-      <div
-        style={{
-          position: "absolute",
-          top: "65px",
-          left: "20px",
-          width: "22%",
-          height: "auto",
-          border: "1px solid #1a1851",
-          borderRadius: "8px",
-          padding: "15px",
-          backgroundColor: "white",
-          boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
-          overflowY: "auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <img src={filterIcon} alt="Filter" style={{ width: "12px", height: "12px" }} />
-          <h2 style={{ fontFamily: "Poppins", fontSize: "10px", fontWeight: "500", color: "#1a1851" }}>
-            Filters
-          </h2>
-        </div>
-
-        {/* Search */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-          <label style={{ fontFamily: "Poppins", fontSize: "8px", color: "#000" }}>Search</label>
-          <div style={{ position: "relative" }}>
-            <img
-              src={searchIcon}
-              alt="Search"
-              style={{
-                position: "absolute",
-                left: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "10px",
-                height: "10px",
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Title, Author, or keyword"
-              style={{
-                width: "100%",
-                padding: "8px 12px 8px 32px",
-                fontSize: "7px",
-                borderRadius: "4px",
-                border: "1px solid #d8d8d8",
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Fields Dropdown */}
-        <div style={{ position: "relative", marginTop: "-15px", marginBottom: "10px" }}>
-          <label style={{ fontFamily: "Poppins", fontSize: "8px", color: "#000" }}>Fields</label>
-          <div
-            style={{
-              width: "100%",
-              padding: "6px 12px",
-              fontSize: "7px",
-              borderRadius: "4px",
-              border: "1px solid #d8d8d8",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setFieldOpen(!fieldOpen)}
-          >
-            {field}
-            <img src={dropdownIcon} alt="Dropdown" style={{ width: "8px", height: "8px" }} />
-          </div>
-          {fieldOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                width: "100%",
-                backgroundColor: "white",
-                border: "1px solid #d8d8d8",
-                borderRadius: "4px",
-                marginTop: "2px",
-                zIndex: 10,
-              }}
-            >
-              {["All Fields", "IoT", "Database"].map((option) => (
-                <div
-                  key={option}
-                  style={{ padding: "6px 12px", fontSize: "7px", cursor: "pointer" }}
-                  onClick={() => {
-                    setField(option);
-                    setFieldOpen(false);
-                  }}
-                >
-                  {option}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Year Range */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginTop: "-15px" }}>
-          <label style={{ fontFamily: "Poppins", fontSize: "8px", color: "#000" }}>Year</label>
-          <div style={{ display: "flex", gap: "10px" }}>
-            {/* From Year */}
-            <div style={{ position: "relative", flex: 1 }}>
-              <div
-                style={{
-                  width: "100%",
-                  padding: "6px 12px",
-                  fontSize: "7px",
-                  borderRadius: "4px",
-                  border: "1px solid #d8d8d8",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => setFromOpen(!fromOpen)}
-              >
-                {fromYear}
-                <img src={dropdownIcon} alt="Dropdown" style={{ width: "8px", height: "8px" }} />
-              </div>
-              {fromOpen && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    width: "100%",
-                    backgroundColor: "white",
-                    border: "1px solid #d8d8d8",
-                    borderRadius: "4px",
-                    marginTop: "2px",
-                    zIndex: 10,
-                    maxHeight: "100px",
-                    overflowY: "auto",
-                  }}
-                >
-                  {years.map((year) => (
-                    <div
-                      key={year}
-                      style={{ padding: "6px 12px", fontSize: "7px", cursor: "pointer" }}
-                      onClick={() => {
-                        setFromYear(year.toString());
-                        setFromOpen(false);
-                      }}
-                    >
-                      {year}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* To Year */}
-            <div style={{ position: "relative", flex: 1 }}>
-              <div
-                style={{
-                  width: "100%",
-                  padding: "6px 12px",
-                  fontSize: "7px",
-                  borderRadius: "4px",
-                  border: "1px solid #d8d8d8",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => setToOpen(!toOpen)}
-              >
-                {toYear}
-                <img src={dropdownIcon} alt="Dropdown" style={{ width: "8px", height: "8px" }} />
-              </div>
-              {toOpen && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    width: "100%",
-                    backgroundColor: "white",
-                    border: "1px solid #d8d8d8",
-                    borderRadius: "4px",
-                    marginTop: "2px",
-                    zIndex: 10,
-                    maxHeight: "100px",
-                    overflowY: "auto",
-                  }}
-                >
-                  {years.map((year) => (
-                    <div
-                      key={year}
-                      style={{ padding: "6px 12px", fontSize: "7px", cursor: "pointer" }}
-                      onClick={() => {
-                        setToYear(year.toString());
-                        setToOpen(false);
-                      }}
-                    >
-                      {year}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Reset Button */}
-        <button
-          style={{
-            width: "100%",
-            padding: "8px 0",
-            fontSize: "8px",
-            fontFamily: "Poppins",
-            fontWeight: "600",
-            backgroundColor: "#1a1851",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginTop: "10px",
-          }}
-          onClick={() => {
-            setField("All Fields");
-            setFromYear("From Year");
-            setToYear("To Year");
-          }}
-        >
-          Reset Filter
-        </button>
-      </div>
     </>
   );
 }

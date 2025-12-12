@@ -195,19 +195,20 @@ export default function Signup() {
           </p>
 
           {/* Terms */}
-          <div className="signup-checkbox-container">
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              id="termsCheckbox"
-            />
-            <label htmlFor="termsCheckbox">
-              I agree to{" "}
-              <span onClick={() => setShowTerms(true)}>Terms of Service</span> &{" "}
-              <span onClick={() => setShowPrivacy(true)}>Privacy Policy</span>
-            </label>
-          </div>
+<div className="signup-checkbox">
+  <input
+    type="checkbox"
+    checked={agreed}
+    onChange={(e) => setAgreed(e.target.checked)}
+    id="termsCheckbox"
+  />
+  <label htmlFor="termsCheckbox" className="signup-terms-text">
+    I agree to{" "}
+    <span className="signup-terms" onClick={() => setShowTerms(true)}>Terms of Service</span> &{" "}
+    <span className="signup-terms" onClick={() => setShowPrivacy(true)}>Privacy Policy</span>
+  </label>
+</div>
+
 
           {/* Create Account Button */}
           <button

@@ -1,0 +1,222 @@
+/* White gradient overlay */
+.white-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63%; /* covers left side */
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, transparent 100%);
+  z-index: 0; /* behind buttons, above splash */
+}
+
+/* Transparent top container stretching full width */
+.top-buttons-container {
+  position: fixed;               /* always on top */
+  top: 0;
+  left: 0;
+  width: 100%;                   /* full width */
+  padding: 10px 50px;
+  display: flex;
+  justify-content: space-between; /* logos left, buttons right */
+  align-items: center;
+  z-index: 999;                  /* above everything */
+  backdrop-filter: blur(5px);    /* optional frosted glass effect */
+}
+
+/* Logos on the left */
+.top-logos {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.logo-icon {
+  height: 60px;                  /* adjust size */
+  width: auto;
+}
+
+/* Top-right buttons inside container */
+.top-buttons {
+  display: flex;
+  gap: 20px;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .top-buttons-container { padding: 10px 30px; }
+  .logo-icon { height: 35px; }
+  .top-buttons { gap: 15px; font-size: 0.9rem; }
+}
+
+@media (max-width: 768px) {
+  .top-buttons-container { padding: 8px 20px; }
+  .logo-icon { height: 30px; }
+  .top-buttons { gap: 10px; font-size: 0.85rem; }
+}
+
+/* Buttons */
+.btn-register {
+  color: black;
+  padding: 10px 30px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-register:hover {
+  background-color: black;
+  color: white;
+}
+
+.btn-login {
+  background-color: #1a1851;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-login:hover {
+  background-color: #000000;
+}
+
+/* Stretched splash image */
+.splash-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.5; /* slightly darker for better contrast */
+}
+
+/* Welcome text */
+.welcometext {
+  position: absolute;
+  top: 195px;
+  left: 80px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1851;
+  z-index: 2;
+}
+
+/* CapSort logo */
+.capsort-logo {
+  position: absolute;
+  top: 250px;
+  left: 80px;
+  width: 680px;
+  height: 150px;
+  z-index: 2;
+}
+
+/* Project description */
+.project-description {
+  position: absolute;
+  top: 415px;
+  left: 80px;
+  width: 450px;
+  font-size: 1rem;
+  color: #1a1851;
+  line-height: 1.6;
+  text-align: justify;
+  z-index: 2;
+  font-weight: 400;
+}
+
+/* Explore button */
+.btn-explore {
+  position: absolute;
+  top: 670px;
+  left: 80px;
+  padding: 12px 45px;
+  background-color: #1a1851;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  transition: 0.3s;
+  z-index: 2;
+}
+
+.btn-explore:hover {
+  background-color: #ff4500;
+}
+
+/* Arrow image inside button */
+.explore-arrow {
+  width: 18px;
+  height: auto;
+  filter: invert(100%);
+}
+
+/* Bottom-center icon container */
+.bottom-icons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 2;
+}
+
+/* Icon style */
+.bottom-icons .icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.5;           /* transparent by default */
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Hover effect */
+.bottom-icons .icon:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* Copyright text */
+.copyright {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #464646;
+  opacity: 0.7;
+  z-index: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .welcometext { font-size: 1.6rem; top: 120px; left: 50px; }
+  .capsort-logo { width: 300px; top: 180px; left: 50px; }
+  .project-description { width: 350px; font-size: 0.95rem; top: 300px; left: 50px; }
+  .btn-explore { top: 480px; left: 50px; padding: 10px 30px; font-size: 0.95rem; }
+  .explore-arrow { width: 16px; }
+  .bottom-icons { gap: 30px; bottom: 20px; }
+  .bottom-icons .icon { width: 35px; height: 35px; }
+}
+
+@media (max-width: 768px) {
+  .welcometext { font-size: 1.3rem; top: 100px; left: 30px; }
+  .capsort-logo { width: 250px; top: 150px; left: 30px; }
+  .project-description { width: 280px; font-size: 0.9rem; top: 260px; left: 30px; }
+  .top-buttons-container { top: 15px; right: 20px; padding: 8px 15px; }
+  .btn-explore { top: 400px; left: 30px; padding: 8px 25px; font-size: 0.9rem; }
+  .explore-arrow { width: 14px; }
+  .bottom-icons { gap: 25px; bottom: 15px; }
+  .bottom-icons .icon { width: 30px; height: 30px; }
+}

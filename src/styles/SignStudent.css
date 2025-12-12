@@ -26,6 +26,28 @@
   height: 32px;
 }
 
+.signup-input-note {
+  font-size: 0.8rem;
+  margin-top: -11px;
+}
+.signup-checkbox {
+  margin-top: -10px;
+}
+
+.signup-terms-text {
+  font-size: 0.8rem;
+  margin-left: 12px;
+}
+
+.signup-terms {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.signup-terms:hover {
+  text-decoration: underline;
+}
+
 /* ===== LEFT SCROLL / FORM ===== */
 .signup-scroll-container {
   flex: 1;
@@ -207,6 +229,7 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
 .signup-admin-note {
   margin-top: 60px;
   padding: 12px;
@@ -295,8 +318,8 @@
   background-color: #000;
 }
 .modal-cancel {
-  background-color: #ccc;
-  color: #333;
+  background-color: black;
+  color: white;
   padding: 10px;
 }
 .modal-cancel:hover {
@@ -312,3 +335,210 @@
 }
 @media (max-width: 768px) { .signup-logo { width: 50vw; } }
 @media (max-width: 480px) { .signup-logo { width: 50vw; } }
+
+
+.signup-verification-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* space between inputs */
+  margin-top: 35px;
+}
+
+.signup-verification-input {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  border: 1px solid #1a1851;
+  border-radius: 5px; 
+  outline: none;
+  transition: border 0.2s;
+}
+
+.signup-verification-email {
+  color: #8d8d8d;
+  margin-left: 5px;
+}
+
+.signup-verification-message,
+.signup-verification-email {
+  font-size: 0.8rem;
+}
+
+.signup-change-email {
+  font-size: 0.9rem;
+  color: 1a1851;
+  font-weight: bold;
+
+}
+
+.signup-change-email:hover {
+      text-decoration: underline;
+
+}
+
+.signup-timer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.8rem;
+}
+
+.signup-timer-label {
+  color: black;
+}
+
+.signup-timer-value {
+  font-weight: bold;
+}
+
+
+.signup-verification-buttons {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  gap: 10px;
+  margin-top: 40px;
+  align-items: center; /* center horizontally */
+}
+
+.signup-confirm-button  {
+  width: 350px;
+  padding: 10px 16px;
+  background-color: #1a1851;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+      font-weight: bold;
+  text-align: center;
+}
+.signup-confirm-button:hover  {
+      background-color: #0d0d2b;
+}
+
+.signup-resend-button  {
+  width: 350px;
+  padding: 10px 16px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.signup-resend-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align:center;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+  align-items: center; /* center horizontally */
+
+}
+
+/* ===== NEW PASSWORD FORM ===== */
+.signup-new-password-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* align all children to the left */
+  margin-top: 30px;
+}
+
+/* ===== CREATE NEW PASSWORD ===== */
+.signup-new-password-container,
+.signup-confirm-password-container {
+  position: relative;
+  width: 510px; 
+  min-height: 45px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  margin-bottom: 12px;
+}
+
+.signup-new-password-input,
+.signup-confirm-password-input {
+  width: calc(100% - 60px);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 0.9rem;
+  padding: 12px 0 12px 40px;
+}
+
+.signup-new-password-input::placeholder,
+.signup-confirm-password-input::placeholder {
+  color: #8d8d8d;
+  font-size: 0.9rem;
+}
+
+.signup-new-password-icon,
+.signup-confirm-password-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+.signup-new-password-toggle,
+.signup-confirm-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.signup-password-note {
+  font-size: 0.8rem;
+  margin-bottom: 40px;
+  text-align: left;
+  padding-left: 10px; /* align with input text (accounts for icon) */
+}
+
+.signup-password-firstnote {
+  font-size: 0.8rem;
+  text-align: left;
+    margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.signup-reset-button {
+  width: 510px; 
+  background-color: #1a1851;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-reset-button:hover {
+  background-color: #000;
+}

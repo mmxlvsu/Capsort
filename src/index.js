@@ -13,7 +13,6 @@ import StudentDash from "./pages/StudentDash";
 import StudentAbout from "./pages/StudentAbout";
 import Verify from "./pages/Verify";
 import Reset from "./pages/Reset";
-import ResetPassword from "./pages/ResetPassword";
 import Saved from "./pages/Saved";
 import AdminDash from "./pages/AdminDash";
 import AdminAnalytics from "./pages/AdminAnalytics";
@@ -33,7 +32,6 @@ root.render(
           <Route path="/guest" element={<Guest />} />
           <Route path="/guestabout" element={<GuestAbout />} />
           <Route path="/reset" element={<Reset />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify" element={<Verify />} />
           
           {/* Student Protected Routes */}

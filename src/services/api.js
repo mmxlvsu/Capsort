@@ -1,5 +1,20 @@
 // API Service - Base HTTP client
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const getApiBaseUrl = () => {
+  // Production environment
+  if (process.env.NODE_ENV === 'production') {
+    return process.env.REACT_APP_API_URL || 'https://capsort-backend.onrender.com/api';
+  }
+  
+  // Development environment
+  return process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Log API URL for debugging (only in development)
+if (process.env.NODE_ENV === 'development') {
+  console.log('🔗 API Base URL:', API_BASE_URL);
+}
 
 class ApiService {
   constructor() {

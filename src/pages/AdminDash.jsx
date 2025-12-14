@@ -103,8 +103,8 @@ export default function AdminDash() {
         return;
       }
 
-      if (year < 1900) {
-        alert('Year must be 1900 or later');
+      if (year < 2010) {
+        alert('Year must be 2010 or later');
         return;
       }
 
@@ -139,8 +139,8 @@ export default function AdminDash() {
         return;
       }
 
-      if (year < 1900) {
-        alert('Year must be 1900 or later');
+      if (year < 2010) {
+        alert('Year must be 2010 or later');
         return;
       }
 
@@ -474,7 +474,7 @@ export default function AdminDash() {
               className="admndash-add-paper-modal-input"
               value={formData.year}
               onChange={(e) => handleFormChange('year', e.target.value)}
-              min="1900"
+              min="2010"
               max={new Date().getFullYear()}
             />
             
@@ -570,7 +570,7 @@ export default function AdminDash() {
               className="admndash-add-paper-modal-input"
               value={formData.year}
               onChange={(e) => handleFormChange('year', e.target.value)}
-              min="1900"
+              min="2010"
               max={new Date().getFullYear()}
             />
             

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import citc from "../assets/citc.png";
-import userImg from "../assets/user.png";
-import signoutIcon from "../assets/signout.png";
 import capsort from "../assets/capsort.png";
-import "../styles/GuestAbout.css"; // you can rename this to GuestAbout.css later
+import "../styles/GuestAbout.css";
 
 // ===== TEAM MEMBERS =====
 const teamMembers = [
@@ -38,7 +36,6 @@ const content = {
 
 export default function GuestAbout() {
   const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <div className="guestabout-wrapper">

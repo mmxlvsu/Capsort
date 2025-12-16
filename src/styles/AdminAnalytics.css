@@ -172,6 +172,32 @@
   font-weight: 700;
   color: #1a1851;
 }
+/* Container for all meta info */
+.aa-view-meta-fix {
+  display: flex;
+  flex-direction: column; /* Each item on a new line */
+  gap: 8px; /* Space between lines */
+}
+
+/* Each meta item */
+.aa-view-meta-item-fix {
+  display: flex;
+  align-items: center; /* Vertically center icon and text */
+  gap: 8px; /* Space between icon and text */
+}
+
+/* Icon */
+.aa-view-meta-icon-fix {
+  width: 20px; /* Adjust icon size */
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Optional: text styling */
+.aa-view-meta-item-fix span {
+  font-size: 18px;
+  color: #333; /* Or any color you want */
+}
 
 /* Most Viewed Project */
 .aa-most-viewed-box {

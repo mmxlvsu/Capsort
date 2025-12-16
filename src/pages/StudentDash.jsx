@@ -30,6 +30,9 @@ export default function StudentDash() {
   // UI states
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   
+    const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
   // Data states
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -178,36 +181,43 @@ export default function StudentDash() {
 
       {/* MAIN CONTENT */}
       <div className="studentdash-main-content-wrapper">
-        {/* FILTERS */}
-        <div className="studentdash-filter-sidebar">
-          <div className="studentdash-filter-header">
-            <img src={filterIcon} alt="Filter" className="studentdash-filter-icon" />
-            <h2 className="studentdash-filter-title">Filters</h2>
+        {/* FILTER SIDEBAR */}
+        <div className="guest-filter-sidebar">
+          <div className="guest-filter-header">
+            <img src={filterIcon} alt="Filter" className="guest-filter-icon" />
+            <h2 className="guest-filter-title">Filters</h2>
           </div>
 
-          <div className="studentdash-filter-search">
-            <label className="studentdash-filter-label">Search</label>
-            <div className="studentdash-filter-input-container">
-              <img src={searchIcon} alt="Search" className="studentdash-filter-input-icon" />
+          <div className="guest-filter-search">
+            <label className="guest-filter-label">Search</label>
+            <div className="guest-filter-input-container">
+              <img src={searchIcon} alt="Search" className="guest-filter-input-icon" />
               <input
                 type="text"
                 placeholder="Title, Author, or keyword"
-                className="studentdash-filter-input"
+                className="guest-filter-input"
                 value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
 
-          <div className="studentdash-filter-fields">
-            <label className="studentdash-filter-label">Fields</label>
-            <div className="studentdash-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
-              {field} <img src={dropdownIcon} alt="Dropdown" className="studentdash-filter-dropdown-icon" />
+          <div className="guest-filter-fields">
+            <label className="guest-filter-label">Fields</label>
+            <div className="guest-filter-dropdown" onClick={() => setFieldOpen(!fieldOpen)}>
+              {field} <img src={dropdownIcon} alt="Dropdown" className="guest-filter-dropdown-icon" />
             </div>
             {fieldOpen && (
-              <div className="studentdash-filter-dropdown-list">
+              <div className="guest-filter-dropdown-list">
                 {availableFields.map(option => (
-                  <div key={option} className="studentdash-filter-dropdown-item" onClick={() => { setField(option); setFieldOpen(false); }}>
+                  <div
+                    key={option}
+                    className="guest-filter-dropdown-item"
+                    onClick={() => {
+                      setField(option);
+                      setFieldOpen(false);
+                    }}
+                  >
                     {option}
                   </div>
                 ))}
@@ -215,7 +225,48 @@ export default function StudentDash() {
             )}
           </div>
 
-          <button className="studentdash-filter-reset-btn" onClick={resetFilters}>Reset Filter</button>
+          <div className="guest-filter-year">
+            <label className="guest-filter-label">Year</label>
+            <div className="guest-filter-year-range">
+              {["from", "to"].map((type, i) => {
+                const open = type === "from" ? fromOpen : toOpen;
+                const setOpen = type === "from" ? setFromOpen : setToOpen;
+                const value = type === "from" ? fromYear : toYear;
+                const setValue = type === "from" ? setFromYear : setToYear;
+
+                return (
+                  <div key={i} className="guest-filter-year-item">
+                    <div className="guest-filter-dropdown" onClick={() => setOpen(!open)}>
+                      {value} <img src={dropdownIcon} alt="Dropdown" className="guest-filter-dropdown-icon" />
+                    </div>
+                    {open && (
+                      <div className="guest-filter-dropdown-list scroll">
+                        {years.map(year => (
+                          <div
+                            key={year}
+                            className="guest-filter-dropdown-item"
+                            onClick={() => {
+                              setValue(year.toString());
+                              setOpen(false);
+                            }}
+                          >
+                            {year}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            className="guest-filter-reset-btn"
+            onClick={resetFilters}
+          >
+            Reset Filter
+          </button>
         </div>
 
         {/* PROJECT CARDS */}
